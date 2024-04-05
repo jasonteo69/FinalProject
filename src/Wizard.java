@@ -15,14 +15,16 @@ public class Wizard {
     private int wizardX;
     private int wizardY;
 
-    public Wizard (int wizNum) {
+    public Wizard (String wizNum) {
         health = 0;
         armor = 0;
         damage = 0;
+        wizardX = 0;
+        wizardY = 0;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage();
-        wizardPosition = new Rectangle (200 ,200, image.getWidth(), image.getHeight());
+        wizardPosition = new Rectangle (wizardX ,wizardY, image.getWidth(), image.getHeight());
     }
     public BufferedImage getImage() {
         return image;

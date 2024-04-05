@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Frame extends JFrame implements Runnable {
     private Movement movement;
@@ -9,8 +10,8 @@ public class Frame extends JFrame implements Runnable {
         movement = new Movement();
         this.add(movement);
         this.setDefaultCloseOperation(3);
+        this.setSize(750, 750);
         this.setLocationRelativeTo(null);
-        this.setSize(500, 500);
         this.setVisible(true);
         startThread();
     }
