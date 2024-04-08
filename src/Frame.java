@@ -6,11 +6,14 @@ public class Frame extends JFrame implements Runnable {
     private Thread windowThread;
     int playerX = 0;
     int playerY = 0;
+    private Container background;
+    private Projectile projectile;
 
     public Frame (String display) {
         super(display);
         movement = new Movement();
         this.add(movement);
+        this.getContentPane().setBackground(Color.BLACK);
         this.setDefaultCloseOperation(3);
         this.setSize(750, 750);
         this.setLocationRelativeTo(null);

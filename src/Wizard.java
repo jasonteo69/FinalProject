@@ -18,16 +18,16 @@ public class Wizard {
         damage = 0;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
-        this.image = readImage();
+        this.image = readImage(imageFileName);
     }
     public BufferedImage getImage() {
         return image;
     }
 
-    public BufferedImage readImage() {
+    public static BufferedImage readImage(String imageName) {
         try {
             BufferedImage image;
-            image = ImageIO.read(new File(imageFileName));
+            image = ImageIO.read(new File(imageName));
             return image;
         }
         catch (IOException e) {

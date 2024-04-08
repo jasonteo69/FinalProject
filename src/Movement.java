@@ -8,9 +8,11 @@ public class Movement extends JPanel implements KeyListener {
     private int wizardX;
     private int wizardY;
     private boolean upPressed, downPressed, leftPressed, rightPressed;
+    private Stage stage;
 
     public Movement () {
         wizard = new Wizard("1");
+        stage = new Stage("");
         wizardX = 0;
         wizardY = 0;
     }
@@ -27,6 +29,7 @@ public class Movement extends JPanel implements KeyListener {
     }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(stage.getImage(), 0, 0, this);
         g.drawImage(wizard.getImage(), wizardX, wizardY, this);
     }
 
