@@ -10,21 +10,15 @@ public class Wizard {
     private int damage;
     private String weapon;
     private BufferedImage image;
-    private Rectangle wizardPosition;
     private String imageFileName;
-    private int wizardX;
-    private int wizardY;
 
     public Wizard (String wizNum) {
         health = 0;
         armor = 0;
         damage = 0;
-        wizardX = 0;
-        wizardY = 0;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage();
-        wizardPosition = new Rectangle (wizardX ,wizardY, image.getWidth(), image.getHeight());
     }
     public BufferedImage getImage() {
         return image;
@@ -77,14 +71,6 @@ public class Wizard {
         this.image = image;
     }
 
-    public Rectangle getWizardPosition() {
-        return wizardPosition;
-    }
-
-    public void setWizardPosition(Rectangle wizardPosition) {
-        this.wizardPosition = wizardPosition;
-    }
-
     public String getImageFileName() {
         return imageFileName;
     }
@@ -93,19 +79,4 @@ public class Wizard {
         this.imageFileName = imageFileName;
     }
 
-    public int getWizardX() {
-        return wizardX;
-    }
-
-    public void setWizardX(int wizardX) {
-        this.wizardX = wizardX;
-    }
-
-    public int getWizardY() {
-        return wizardY;
-    }
-
-    public void setWizardY(int wizardY) {
-        this.wizardY = wizardY;
-    }
 }
