@@ -3,15 +3,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-public class Projectile extends Movement implements KeyListener {
+public class Projectile {
     private BufferedImage image;
     private String imageFileName;
     private boolean isFiring;
     private int x;
+    private int y;
     public Projectile(String projectile) {
         this.imageFileName = "images/" + projectile + ".jpg";
         this.image = Wizard.readImage(imageFileName);
-        x = super.getX() + 10;
+        x = 0;
+        y = 0;
     }
     public BufferedImage getImage() {
         return image;
@@ -29,26 +31,30 @@ public class Projectile extends Movement implements KeyListener {
         this.imageFileName = imageFileName;
     }
 
+    public boolean isFiring() {
+        return isFiring;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setFiring(boolean firing) {
+        isFiring = firing;
+    }
+
     public void shoot() {
-        if (isFiring) {
-            x += 10;
-        }
+        x += 30;
+    }
+    public int getX() {
+        return x;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            isFiring = true;
-        }
+    public void setX(int x) {
+        this.x = x;
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    public void setY(int y) {
+        this.y = y;
     }
 }

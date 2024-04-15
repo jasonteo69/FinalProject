@@ -5,32 +5,38 @@ import java.awt.event.KeyListener;
 
 public class Movement extends JPanel implements KeyListener {
     private Wizard wizard;
-    private int wizardX;
-    private int wizardY;
     private boolean upPressed, downPressed, leftPressed, rightPressed;
     private Stage stage;
+    private Projectile projectile;
 
     public Movement () {
         wizard = new Wizard("1");
         stage = new Stage("");
-        wizardX = 0;
-        wizardY = 0;
+        projectile = new Projectile("fireball");
+        projectile.setX(wizard.getWizX() + 30);
+        projectile.setY(wizard.getWizY() + 15);
     }
-    public void updatePosition() {
+    public void updateWizardPosition() {
         if (upPressed) {
-            wizardY -= 5;
+            wizard.setWizY(wizard.getWizY() - 5);
         } else if (downPressed) {
-            wizardY += 5;
+            wizard.setWizY(wizard.getWizY() + 5);
         } else if (rightPressed) {
-            wizardX += 5;
+            wizard.setWizX(wizard.getWizX() + 5);
         } else if (leftPressed) {
-            wizardX -= 5;
+            wizard.setWizX(wizard.getWizX() - 5);
         }
     }
-    protected void paintComponent(Graphics g) {
+    public void updateProjectilePosition() {
+        if (projectile.isFiring()) {
+            projectile.shoot();
+        }
+    }
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(stage.getImage(), 0, 0, this);
-        g.drawImage(wizard.getImage(), wizardX, wizardY, this);
+        g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
+        g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
     }
 
     @Override
@@ -66,7 +72,14 @@ public class Movement extends JPanel implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-
+        if (e.getKeyCode() == 32) {
+            projectile.setFiring(true);
+        } else {
+            projectile.setFiring(false);
+        }
+    }
+    public Projectile getProjectile() {
+        return projectile;
     }
 
     public Wizard getWizard() {

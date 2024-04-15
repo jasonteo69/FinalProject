@@ -11,6 +11,8 @@ public class Wizard {
     private String weapon;
     private BufferedImage image;
     private String imageFileName;
+    int wizX;
+    int wizY;
 
     public Wizard (String wizNum) {
         health = 0;
@@ -19,6 +21,8 @@ public class Wizard {
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
+        wizX = 0;
+        wizY = 0;
     }
     public BufferedImage getImage() {
         return image;
@@ -79,4 +83,19 @@ public class Wizard {
         this.imageFileName = imageFileName;
     }
 
+    public int getWizX() {
+        return wizX;
+    }
+
+    public int getWizY() {
+        return wizY;
+    }
+
+    public void setWizX(int wizX) {
+        this.wizX = wizX;
+    }
+
+    public void setWizY(int wizY) {
+        this.wizY = wizY;
+    }
 }

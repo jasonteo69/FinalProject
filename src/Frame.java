@@ -4,18 +4,13 @@ import java.awt.*;
 public class Frame extends JFrame implements Runnable {
     private Movement movement;
     private Thread windowThread;
-    int playerX = 0;
-    int playerY = 0;
-    private Container background;
-    private Projectile projectile;
 
     public Frame (String display) {
         super(display);
         movement = new Movement();
         this.add(movement);
-        this.getContentPane().setBackground(Color.BLACK);
         this.setDefaultCloseOperation(3);
-        this.setSize(750, 750);
+        this.setSize(750, 513);
         this.setLocationRelativeTo(null);
         this.addKeyListener(movement);
         this.setFocusable(true);
@@ -33,7 +28,8 @@ public class Frame extends JFrame implements Runnable {
         double end = System.nanoTime() + start; //Draws 60 times limit
 
         while (true) {
-            movement.updatePosition();
+            movement.updateWizardPosition();
+            movement.updateProjectilePosition();
             repaint();
             try {
 
