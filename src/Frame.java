@@ -4,6 +4,7 @@ import java.awt.*;
 public class Frame extends JFrame implements Runnable {
     private Movement movement;
     private Thread windowThread;
+    private Collision collision;
 
     public Frame (String display) {
         super(display);
@@ -13,8 +14,10 @@ public class Frame extends JFrame implements Runnable {
         this.setSize(750, 513);
         this.setLocationRelativeTo(null);
         this.addKeyListener(movement);
+        this.addKeyListener(movement.getProjectile());
         this.setFocusable(true);
         this.setVisible(true);
+        collision = new Collision(movement.getDetection().getObject(), movement.getDetection().getProjectile());
         startThread();
     }
     public void startThread() {
@@ -42,7 +45,7 @@ public class Frame extends JFrame implements Runnable {
 
                 throw new RuntimeException(e);
             }
-
+            collision.collided();
         }
     }
 }

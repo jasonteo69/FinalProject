@@ -22,7 +22,7 @@ public class Wizard {
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
         wizX = 0;
-        wizY = 0;
+        wizY = 375;
     }
     public BufferedImage getImage() {
         return image;

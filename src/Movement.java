@@ -8,13 +8,17 @@ public class Movement extends JPanel implements KeyListener {
     private boolean upPressed, downPressed, leftPressed, rightPressed;
     private Stage stage;
     private Projectile projectile;
+    private Boss boss;
+    private Collision detection;
 
     public Movement () {
         wizard = new Wizard("1");
         stage = new Stage("");
         projectile = new Projectile("fireball");
+        boss = new Boss("dragon");
         projectile.setX(wizard.getWizX() + 30);
         projectile.setY(wizard.getWizY() + 15);
+        detection = new Collision(boss.getHitbox(), projectile.getHitbox());
     }
     public void updateWizardPosition() {
         if (upPressed) {
@@ -36,7 +40,8 @@ public class Movement extends JPanel implements KeyListener {
         super.paintComponent(g);
         g.drawImage(stage.getImage(), 0, 0, this);
         g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
-        g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
+        g.drawImage(projectile.getImage(), wizard.getWizX() + 30, wizard.getWizY() + 15, this);
+        g.drawImage(boss.getImage(), 500, 300, this);
     }
 
     @Override
@@ -72,11 +77,7 @@ public class Movement extends JPanel implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == 32) {
-            projectile.setFiring(true);
-        } else {
-            projectile.setFiring(false);
-        }
+
     }
     public Projectile getProjectile() {
         return projectile;
@@ -88,5 +89,65 @@ public class Movement extends JPanel implements KeyListener {
 
     public void setWizard(Wizard wizard) {
         this.wizard = wizard;
+    }
+
+    public boolean isUpPressed() {
+        return upPressed;
+    }
+
+    public void setUpPressed(boolean upPressed) {
+        this.upPressed = upPressed;
+    }
+
+    public boolean isDownPressed() {
+        return downPressed;
+    }
+
+    public void setDownPressed(boolean downPressed) {
+        this.downPressed = downPressed;
+    }
+
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public void setLeftPressed(boolean leftPressed) {
+        this.leftPressed = leftPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
+    }
+
+    public void setRightPressed(boolean rightPressed) {
+        this.rightPressed = rightPressed;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setProjectile(Projectile projectile) {
+        this.projectile = projectile;
+    }
+
+    public Boss getBoss() {
+        return boss;
+    }
+
+    public void setBoss(Boss boss) {
+        this.boss = boss;
+    }
+
+    public Collision getDetection() {
+        return detection;
+    }
+
+    public void setDetection(Collision detection) {
+        this.detection = detection;
     }
 }
