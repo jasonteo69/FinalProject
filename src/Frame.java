@@ -2,13 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame implements Runnable {
-    private Movement movement;
+    private Drawing movement;
     private Thread windowThread;
     private Collision collision;
 
     public Frame (String display) {
         super(display);
-        movement = new Movement();
+        movement = new Drawing();
         this.add(movement);
         this.setDefaultCloseOperation(3);
         this.setSize(750, 513);
@@ -45,7 +45,6 @@ public class Frame extends JFrame implements Runnable {
 
                 throw new RuntimeException(e);
             }
-            collision.collided();
         }
     }
 }

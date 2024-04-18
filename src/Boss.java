@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -12,10 +13,7 @@ public class Boss {
         damage = 0;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
-        hitbox = new Rectangle(400, 200, 243, 165);
-    }
-    public void drawImage(Graphics g) {
-        g.drawImage(image, 400, 200, null);
+        hitbox = new Rectangle(450, 300, 243, 165);
     }
 
     public int getHealth() {

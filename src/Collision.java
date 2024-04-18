@@ -15,7 +15,6 @@ public class Collision {
             System.out.println("hit once");
             return true;
         } else {
-            System.out.println("not touching");
             return false;
         }
     }

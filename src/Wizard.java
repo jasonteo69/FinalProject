@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,7 +7,6 @@ import java.io.IOException;
 
 public class Wizard {
     private int health;
-    private int armor;
     private int damage;
     private String weapon;
     private BufferedImage image;
@@ -16,7 +16,6 @@ public class Wizard {
 
     public Wizard (String wizNum) {
         health = 0;
-        armor = 0;
         damage = 0;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
@@ -45,14 +44,6 @@ public class Wizard {
 
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public int getArmor() {
-        return armor;
-    }
-
-    public void setArmor(int armor) {
-        this.armor = armor;
     }
 
     public int getDamage() {
@@ -98,4 +89,5 @@ public class Wizard {
     public void setWizY(int wizY) {
         this.wizY = wizY;
     }
+
 }
