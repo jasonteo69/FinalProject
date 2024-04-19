@@ -12,7 +12,7 @@ public class Drawing extends JPanel implements KeyListener {
     private Collision detection;
 
     public Drawing () {
-        wizard = new Wizard("2");
+        wizard = new Wizard("1");
         stage = new Stage("");
         projectile = new Projectile("fireball");
         boss = new Boss("dragon");
@@ -21,17 +21,17 @@ public class Drawing extends JPanel implements KeyListener {
     public void updateWizardPosition() {
         //diagonal movement
         if (upPressed && rightPressed) {
-            wizard.setWizX(wizard.getWizX() + 5);
-            wizard.setWizY(wizard.getWizY() - 5);
+            wizard.setWizX(wizard.getWizX() + 4);
+            wizard.setWizY(wizard.getWizY() - 4);
         } else if (upPressed && leftPressed) {
-            wizard.setWizY(wizard.getWizY() - 5);
-            wizard.setWizX(wizard.getWizX() - 5);
+            wizard.setWizY(wizard.getWizY() - 4);
+            wizard.setWizX(wizard.getWizX() - 4);
         } else if (downPressed && rightPressed) {
-            wizard.setWizX(wizard.getWizX() + 5);
-            wizard.setWizY(wizard.getWizY() + 5);
+            wizard.setWizX(wizard.getWizX() + 4);
+            wizard.setWizY(wizard.getWizY() + 4);
         } else if (downPressed && leftPressed) {
-            wizard.setWizX(wizard.getWizX() - 5);
-            wizard.setWizY(wizard.getWizY() + 5);
+            wizard.setWizX(wizard.getWizX() - 4);
+            wizard.setWizY(wizard.getWizY() + 4);
         } else { //one direction movement
             if (upPressed) {
                 wizard.setWizY(wizard.getWizY() - 5);
@@ -47,18 +47,36 @@ public class Drawing extends JPanel implements KeyListener {
     public void updateProjectilePosition() {
         if (projectile.isFiring()) {
             projectile.shoot();
+            if (projectile.getX() >= 750) {
+                projectile.setFiring(false);
+                projectile.show = false;
+            }
         }
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         //background
         g.drawImage(stage.getImage(), 0, 0, this);
+
         //wizard
+        if (wizard.getWizX() >= 750) {
+            wizard.setWizX(0);
+        }
+        if (wizard.getWizY() >= 470) {
+            wizard.setWizY(0);
+        }
         g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
+
         //projectile
-        g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
+        g.drawRect(projectile.getX(), projectile.getY(), 25,25);
+        if (projectile.isShow()) {
+            g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
+        }
+
         //boss
-        g.drawImage(boss.getImage(), 450, 300, null);
+        g.drawImage(boss.getImage(), 450, 300, this);
+        g.drawRect(450, 300, 243, 165);
 
         detection.setProjectile(projectile.getHitbox());
         detection.setObject(boss.getHitbox());
@@ -78,9 +96,6 @@ public class Drawing extends JPanel implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             leftPressed = true;
         }
-        if (e.getKeyCode() == 32) {
-            projectile.shoot();
-        }
     }
 
     @Override
@@ -97,10 +112,15 @@ public class Drawing extends JPanel implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             leftPressed = false;
         }
+        if (e.getKeyCode() == 32) {
+            projectile.setFiring(true);
+            projectile.show = true;
+            projectile.setX(wizard.getWizX());
+            projectile.setY(wizard.getWizY());
+        }
     }
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
     public Projectile getProjectile() {
         return projectile;

@@ -14,7 +14,6 @@ public class Frame extends JFrame implements Runnable {
         this.setSize(750, 513);
         this.setLocationRelativeTo(null);
         this.addKeyListener(movement);
-        this.addKeyListener(movement.getProjectile());
         this.setFocusable(true);
         this.setVisible(true);
         collision = new Collision(movement.getDetection().getObject(), movement.getDetection().getProjectile());
@@ -45,6 +44,7 @@ public class Frame extends JFrame implements Runnable {
 
                 throw new RuntimeException(e);
             }
+            collision.collided();
         }
     }
 }

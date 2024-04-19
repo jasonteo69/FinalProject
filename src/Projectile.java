@@ -11,10 +11,11 @@ public class Projectile implements KeyListener {
     private int x;
     private int y;
     private Rectangle hitbox;
+    boolean show;
     public Projectile(String projectile) {
         this.imageFileName = "images/" + projectile + ".jpg";
         this.image = Wizard.readImage(imageFileName);
-        x = 0;
+        x = 30;
         y = 0;
         hitbox = new Rectangle(x, y,25, 25);
     }
@@ -24,6 +25,14 @@ public class Projectile implements KeyListener {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 
     public String getImageFileName() {
@@ -47,7 +56,7 @@ public class Projectile implements KeyListener {
     }
 
     public void shoot() {
-        x += 30;
+        x += 10;
     }
     public int getX() {
         return x;
@@ -68,11 +77,11 @@ public class Projectile implements KeyListener {
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
     }
-    public void keyTyped(KeyEvent e) {
+   public void keyTyped(KeyEvent e) {
         if (e.getKeyCode() == 32) {
             isFiring = true;
-        } else {
-            isFiring = false;
+       } else {
+           isFiring = false;
         }
     }
 
