@@ -11,8 +11,9 @@ public class Wizard {
     private String weapon;
     private BufferedImage image;
     private String imageFileName;
-    int wizX;
-    int wizY;
+    private int wizX;
+    private int wizY;
+    private Projectile projectile;
 
     public Wizard (String wizNum) {
         health = 0;
@@ -22,6 +23,7 @@ public class Wizard {
         this.image = readImage(imageFileName);
         wizX = 0;
         wizY = 375;
+        projectile = new Projectile("fireball");
     }
     public BufferedImage getImage() {
         return image;

@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Drawing extends JPanel implements KeyListener {
+public class DrawPanel extends JPanel implements KeyListener {
     private Wizard wizard;
     private boolean upPressed, downPressed, leftPressed, rightPressed;
     private Stage stage;
@@ -11,12 +11,12 @@ public class Drawing extends JPanel implements KeyListener {
     private Boss boss;
     private Collision detection;
 
-    public Drawing () {
+    public DrawPanel () {
         wizard = new Wizard("1");
         stage = new Stage("");
         projectile = new Projectile("fireball");
         boss = new Boss("dragon");
-        detection = new Collision(boss.getHitbox(), projectile.getHitbox());
+        detection = new Collision();
     }
     public void updateWizardPosition() {
         //diagonal movement
@@ -49,7 +49,7 @@ public class Drawing extends JPanel implements KeyListener {
             projectile.shoot();
             if (projectile.getX() >= 750) {
                 projectile.setFiring(false);
-                projectile.show = false;
+                projectile.setShow(false);
             }
         }
     }
@@ -77,8 +77,6 @@ public class Drawing extends JPanel implements KeyListener {
         //boss
         g.drawImage(boss.getImage(), 450, 300, this);
         g.drawRect(450, 300, 243, 165);
-
-        detection.setProjectile(projectile.getHitbox());
         detection.setObject(boss.getHitbox());
     }
 
@@ -114,10 +112,11 @@ public class Drawing extends JPanel implements KeyListener {
         }
         if (e.getKeyCode() == 32) {
             projectile.setFiring(true);
-            projectile.show = true;
+            projectile.setShow(true);
             projectile.setX(wizard.getWizX());
             projectile.setY(wizard.getWizY());
         }
+        detection.setProjectile(projectile.getHitbox());
     }
     @Override
     public void keyTyped(KeyEvent e) {

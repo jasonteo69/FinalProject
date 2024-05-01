@@ -4,10 +4,18 @@ public class Collision {
     private Rectangle object;
     private Rectangle projectile;
     private boolean touching;
+    public Frame gamePanel;
 
     public Collision(Rectangle object, Rectangle projectile) {
         this.object = object;
         this.projectile = projectile;
+    }
+    public Collision(Frame gp) {
+        gamePanel = gp;
+    }
+    public Collision() {
+        object = new Rectangle();
+        projectile = new Rectangle();
     }
 
     public boolean collided() {

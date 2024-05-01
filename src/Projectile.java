@@ -11,7 +11,7 @@ public class Projectile implements KeyListener {
     private int x;
     private int y;
     private Rectangle hitbox;
-    boolean show;
+    private boolean show;
     public Projectile(String projectile) {
         this.imageFileName = "images/" + projectile + ".jpg";
         this.image = Wizard.readImage(imageFileName);
@@ -81,7 +81,7 @@ public class Projectile implements KeyListener {
         if (e.getKeyCode() == 32) {
             isFiring = true;
        } else {
-           isFiring = false;
+            isFiring = false;
         }
     }
 

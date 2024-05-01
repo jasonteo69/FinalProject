@@ -2,21 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame implements Runnable {
-    private Drawing movement;
+    private DrawPanel drawing;
     private Thread windowThread;
     private Collision collision;
 
     public Frame (String display) {
         super(display);
-        movement = new Drawing();
-        this.add(movement);
+        drawing = new DrawPanel();
+        this.add(drawing);
         this.setDefaultCloseOperation(3);
         this.setSize(750, 513);
         this.setLocationRelativeTo(null);
-        this.addKeyListener(movement);
+        this.addKeyListener(drawing);
         this.setFocusable(true);
         this.setVisible(true);
-        collision = new Collision(movement.getDetection().getObject(), movement.getDetection().getProjectile());
+        collision = new Collision(this);
         startThread();
     }
     public void startThread() {
@@ -30,8 +30,13 @@ public class Frame extends JFrame implements Runnable {
         double end = System.nanoTime() + start; //Draws 60 times limit
 
         while (true) {
-            movement.updateWizardPosition();
-            movement.updateProjectilePosition();
+            drawing.updateWizardPosition();
+            drawing.updateProjectilePosition();
+            collision.setProjectile(drawing.getProjectile().getHitbox());
+            collision.setObject(drawing.getBoss().getHitbox());
+            if (collision.collided()) {
+                System.out.println("hello");
+            }
             repaint();
             try {
 
@@ -44,7 +49,7 @@ public class Frame extends JFrame implements Runnable {
 
                 throw new RuntimeException(e);
             }
-            collision.collided();
+
         }
     }
 }
