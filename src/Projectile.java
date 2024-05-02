@@ -77,6 +77,9 @@ public class Projectile implements KeyListener {
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
     }
+    public void updateCoords() {
+        hitbox.setBounds(x, y, 25, 25);
+    }
    public void keyTyped(KeyEvent e) {
         if (e.getKeyCode() == 32) {
             isFiring = true;

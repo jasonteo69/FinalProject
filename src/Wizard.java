@@ -1,6 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,17 +11,22 @@ public class Wizard {
     private String imageFileName;
     private int wizX;
     private int wizY;
-    private Projectile projectile;
+    private Projectile[] projectile;
 
     public Wizard (String wizNum) {
-        health = 0;
-        damage = 0;
+        health = 25;
+        damage = 5;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
         wizX = 0;
         wizY = 375;
-        projectile = new Projectile("fireball");
+        projectile = new Projectile[2];
+        generateProjectiles();
+    }
+    private void generateProjectiles() {
+        projectile[0] = new Projectile(weapon + "1");
+        projectile[1] = new Projectile(weapon + "2");
     }
     public BufferedImage getImage() {
         return image;
@@ -90,6 +93,10 @@ public class Wizard {
 
     public void setWizY(int wizY) {
         this.wizY = wizY;
+    }
+
+    public Projectile[] getProjectile() {
+        return projectile;
     }
 
 }

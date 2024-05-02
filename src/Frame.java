@@ -5,6 +5,7 @@ public class Frame extends JFrame implements Runnable {
     private DrawPanel drawing;
     private Thread windowThread;
     private Collision collision;
+    private Stage stage;
 
     public Frame (String display) {
         super(display);
@@ -16,7 +17,6 @@ public class Frame extends JFrame implements Runnable {
         this.addKeyListener(drawing);
         this.setFocusable(true);
         this.setVisible(true);
-        collision = new Collision(this);
         startThread();
     }
     public void startThread() {
@@ -30,13 +30,9 @@ public class Frame extends JFrame implements Runnable {
         double end = System.nanoTime() + start; //Draws 60 times limit
 
         while (true) {
+            //movement
             drawing.updateWizardPosition();
             drawing.updateProjectilePosition();
-            collision.setProjectile(drawing.getProjectile().getHitbox());
-            collision.setObject(drawing.getBoss().getHitbox());
-            if (collision.collided()) {
-                System.out.println("hello");
-            }
             repaint();
             try {
 

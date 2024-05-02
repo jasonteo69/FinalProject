@@ -9,14 +9,14 @@ public class DrawPanel extends JPanel implements KeyListener {
     private Stage stage;
     private Projectile projectile;
     private Boss boss;
-    private Collision detection;
+    private Collision collision;
 
     public DrawPanel () {
-        wizard = new Wizard("1");
-        stage = new Stage("");
-        projectile = new Projectile("fireball");
-        boss = new Boss("dragon");
-        detection = new Collision();
+        stage = new Stage("1");
+        boss = stage.getBoss()[0];
+        wizard = stage.getWizard()[0];
+        projectile = wizard.getProjectile()[0];
+        collision = new Collision();
     }
     public void updateWizardPosition() {
         //diagonal movement
@@ -43,6 +43,12 @@ public class DrawPanel extends JPanel implements KeyListener {
                 wizard.setWizX(wizard.getWizX() - 5);
             }
         }
+        if (wizard.getWizX() >= 750) {
+            wizard.setWizX(0);
+        }
+        if (wizard.getWizY() >= 470) {
+            wizard.setWizY(0);
+        }
     }
     public void updateProjectilePosition() {
         if (projectile.isFiring()) {
@@ -52,6 +58,16 @@ public class DrawPanel extends JPanel implements KeyListener {
                 projectile.setShow(false);
             }
         }
+        projectile.updateCoords();
+        collision.setProjectile(projectile.getHitbox());
+        updateBossPosition();
+        if (collision.collided()) {
+            boss.setHealth(boss.getHealth() - wizard.getDamage());
+            System.out.println(boss.getHealth());
+        }
+    }
+    public void updateBossPosition() {
+        collision.setObject(boss.getHitbox());
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -60,26 +76,20 @@ public class DrawPanel extends JPanel implements KeyListener {
         g.drawImage(stage.getImage(), 0, 0, this);
 
         //wizard
-        if (wizard.getWizX() >= 750) {
-            wizard.setWizX(0);
-        }
-        if (wizard.getWizY() >= 470) {
-            wizard.setWizY(0);
-        }
         g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
 
         //projectile
-        g.drawRect(projectile.getX(), projectile.getY(), 25,25);
         if (projectile.isShow()) {
             g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
         }
+        //debugging collision
+        g.drawRect(projectile.getX(), projectile.getY(), 25,25);
 
         //boss
         g.drawImage(boss.getImage(), 450, 300, this);
+        //debugging collision
         g.drawRect(450, 300, 243, 165);
-        detection.setObject(boss.getHitbox());
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
@@ -116,80 +126,9 @@ public class DrawPanel extends JPanel implements KeyListener {
             projectile.setX(wizard.getWizX());
             projectile.setY(wizard.getWizY());
         }
-        detection.setProjectile(projectile.getHitbox());
     }
     @Override
     public void keyTyped(KeyEvent e) {
     }
-    public Projectile getProjectile() {
-        return projectile;
-    }
 
-    public Wizard getWizard() {
-        return wizard;
-    }
-
-    public void setWizard(Wizard wizard) {
-        this.wizard = wizard;
-    }
-
-    public boolean isUpPressed() {
-        return upPressed;
-    }
-
-    public void setUpPressed(boolean upPressed) {
-        this.upPressed = upPressed;
-    }
-
-    public boolean isDownPressed() {
-        return downPressed;
-    }
-
-    public void setDownPressed(boolean downPressed) {
-        this.downPressed = downPressed;
-    }
-
-    public boolean isLeftPressed() {
-        return leftPressed;
-    }
-
-    public void setLeftPressed(boolean leftPressed) {
-        this.leftPressed = leftPressed;
-    }
-
-    public boolean isRightPressed() {
-        return rightPressed;
-    }
-
-    public void setRightPressed(boolean rightPressed) {
-        this.rightPressed = rightPressed;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setProjectile(Projectile projectile) {
-        this.projectile = projectile;
-    }
-
-    public Boss getBoss() {
-        return boss;
-    }
-
-    public void setBoss(Boss boss) {
-        this.boss = boss;
-    }
-
-    public Collision getDetection() {
-        return detection;
-    }
-
-    public void setDetection(Collision detection) {
-        this.detection = detection;
-    }
 }

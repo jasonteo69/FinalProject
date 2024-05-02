@@ -1,43 +1,31 @@
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 public class Stage {
     private BufferedImage image;
     private String imageFileName;
     private Wizard[] wizard;
     private Boss[] boss;
-    private Stage[] stages;
+    private Frame frame;
+    public Stage(Frame frame) {
+        this.frame = frame;
+    }
     public Stage(String stageNum) {
         this.imageFileName = "images/background" + stageNum + ".jpg";
         this.image = Wizard.readImage(imageFileName);
         wizard = new Wizard[2];
         boss = new Boss[2];
-        stages = new Stage[2];
         generateWizards();
-        generateStage();
         generateBoss();
     }
     private void generateWizards() {
-        for (int i = 1; i < wizard.length; i++) {
-            wizard[i] = new Wizard("" + i);
-        }
-    }
-    private void generateStage() {
-        for (int i = 0; i < stages.length; i++) {
-            if (i == 0) {
-                stages[i] = new Stage("");
-                break;
-            }
-            stages[i] = new Stage("" + i);
-        }
+        wizard[0] = new Wizard("1");
+        wizard[1] = new Wizard("2");
     }
     private void generateBoss() {
-        for (int i = 0; i < boss.length; i++) {
-            if (i == 0) {
-                boss[i] = new Boss("");
-                break;
-            }
-            boss[i] = new Boss("" + i);
-        }
+        boss[0] = new Boss("dragon1");
+        boss[1] = new Boss("dragon2");
+
     }
 
     public BufferedImage getImage() {
@@ -54,5 +42,21 @@ public class Stage {
 
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
+    }
+
+    public Wizard[] getWizard() {
+        return wizard;
+    }
+
+    public void setWizard(Wizard[] wizard) {
+        this.wizard = wizard;
+    }
+
+    public Boss[] getBoss() {
+        return boss;
+    }
+
+    public void setBoss(Boss[] boss) {
+        this.boss = boss;
     }
 }

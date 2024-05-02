@@ -9,8 +9,8 @@ public class Boss {
     private BufferedImage image;
     private Rectangle hitbox;
     public Boss (String boss) {
-        health = 0;
-        damage = 0;
+        health = 100;
+        damage = 2;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
         hitbox = new Rectangle(450, 300, 243, 165);
