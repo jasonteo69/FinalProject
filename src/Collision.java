@@ -19,12 +19,12 @@ public class Collision {
     }
 
     public boolean collided() {
-        if (object.contains(projectile)) {
-            System.out.println("hit once");
-            return true;
+        if (projectile.intersects(object)) {
+            touching = true;
         } else {
-            return false;
+            touching = false;
         }
+        return touching;
     }
     public boolean isTouching() {
         return touching;

@@ -12,6 +12,7 @@ public class Wizard {
     private int wizX;
     private int wizY;
     private Projectile[] projectile;
+    private BufferedImage hearts;
 
     public Wizard (String wizNum) {
         health = 25;
@@ -19,6 +20,7 @@ public class Wizard {
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
+        hearts = readImage("images/health1.png");
         wizX = 0;
         wizY = 375;
         projectile = new Projectile[2];
@@ -41,6 +43,18 @@ public class Wizard {
         catch (IOException e) {
             return null;
         }
+    }
+
+    public void setProjectile(Projectile[] projectile) {
+        this.projectile = projectile;
+    }
+
+    public BufferedImage getHearts() {
+        return hearts;
+    }
+
+    public void setHearts(BufferedImage hearts) {
+        this.hearts = hearts;
     }
 
     public int getHealth() {

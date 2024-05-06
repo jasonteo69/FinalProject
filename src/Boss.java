@@ -8,14 +8,25 @@ public class Boss {
     private String imageFileName;
     private BufferedImage image;
     private Rectangle hitbox;
+    private int x, y;
+    private final int WIDTH;
+    private final int HEIGHT;
+
+
     public Boss (String boss) {
         health = 100;
         damage = 2;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
-        hitbox = new Rectangle(450, 300, 243, 165);
+        x = 500;
+        y = 200;
+        WIDTH = 175;
+        HEIGHT = 250;
+        hitbox = new Rectangle(x, y, WIDTH, HEIGHT);
     }
-
+    public void updateCoords() {
+        hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);
+    }
     public int getHealth() {
         return health;
     }
@@ -54,5 +65,28 @@ public class Boss {
 
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
     }
 }

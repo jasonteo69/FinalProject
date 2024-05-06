@@ -4,8 +4,6 @@ import java.awt.*;
 public class Frame extends JFrame implements Runnable {
     private DrawPanel drawing;
     private Thread windowThread;
-    private Collision collision;
-    private Stage stage;
 
     public Frame (String display) {
         super(display);
