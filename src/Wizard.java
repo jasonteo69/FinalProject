@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,16 +14,20 @@ public class Wizard {
     private int wizY;
     private Projectile[] projectile;
     private BufferedImage hearts;
+    private int heartXSpacing;
+    private int heartYSpacing;
 
     public Wizard (String wizNum) {
-        health = 25;
+        health = 15;
         damage = 5;
         weapon = "fireball";
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
         hearts = readImage("images/health1.png");
         wizX = 0;
-        wizY = 375;
+        wizY = 900;
+        heartXSpacing = 10;
+        heartYSpacing = 40;
         projectile = new Projectile[2];
         generateProjectiles();
     }
@@ -42,6 +47,15 @@ public class Wizard {
         }
         catch (IOException e) {
             return null;
+        }
+    }
+    public void drawHearts(Graphics g) {
+        for (int i = 0; i < health; i++) {
+            g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
+            heartXSpacing += 75;
+            if (heartXSpacing > 1000) {
+                heartXSpacing = 10;
+            }
         }
     }
 

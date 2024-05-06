@@ -44,17 +44,17 @@ public class DrawPanel extends JPanel implements KeyListener {
             }
         }
         //setting bounds
-        if (wizard.getWizX() >= 750) {
+        if (wizard.getWizX() >= 2000) {
             wizard.setWizX(0);
         }
-        if (wizard.getWizY() >= 470) {
+        if (wizard.getWizY() >= 1000) {
             wizard.setWizY(0);
         }
     }
     public void updateProjectilePosition() {
         if (projectile.isFiring()) {
             projectile.shoot();
-            if (projectile.getX() >= 750 || !projectile.isShow()) {
+            if (projectile.getX() >= 2500 || !projectile.isShow()) {
                 projectile.setFiring(false);
                 projectile.setShow(false);
             }
@@ -66,6 +66,7 @@ public class DrawPanel extends JPanel implements KeyListener {
             projectile.setX(-1);
             projectile.setShow(false);
             boss.setHealth(boss.getHealth() - wizard.getDamage());
+            wizard.setHealth(wizard.getHealth() - boss.getDamage());
             projectile.setShow(false);
             System.out.println(boss.getHealth());
         }
@@ -88,9 +89,8 @@ public class DrawPanel extends JPanel implements KeyListener {
 
         //wizard
         g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
-        for (int i = 0; i < wizard.getHealth(); i++) {
-            g.drawImage(wizard.getHearts(), 10 + i, 10, this);
-        }
+        //wizard health
+        wizard.drawHearts(g);
         //projectile
         if (projectile.isShow()) {
             g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
@@ -101,7 +101,7 @@ public class DrawPanel extends JPanel implements KeyListener {
         //boss
         g.drawImage(boss.getImage(), boss.getX(), boss.getY(), this);
         //debugging collision
-        g.drawRect(boss.getX(), boss.getY(), boss.getWIDTH(), boss.getHEIGHT());
+        g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());
 
     }
     @Override

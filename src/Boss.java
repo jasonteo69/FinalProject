@@ -18,11 +18,11 @@ public class Boss {
         damage = 2;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
-        x = 500;
-        y = 200;
+        x = 1600;
+        y = 760;
         WIDTH = 175;
-        HEIGHT = 250;
-        hitbox = new Rectangle(x, y, WIDTH, HEIGHT);
+        HEIGHT = 175;
+        hitbox = new Rectangle(x + 50, y, WIDTH, HEIGHT);
     }
     public void updateCoords() {
         hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);

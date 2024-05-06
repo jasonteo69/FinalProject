@@ -10,7 +10,9 @@ public class Frame extends JFrame implements Runnable {
         drawing = new DrawPanel();
         this.add(drawing);
         this.setDefaultCloseOperation(3);
-        this.setSize(750, 513);
+        this.setSize(1650,1080);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //this.setUndecorated(true);
         this.setLocationRelativeTo(null);
         this.addKeyListener(drawing);
         this.setFocusable(true);
