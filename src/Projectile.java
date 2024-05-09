@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,13 +11,24 @@ public class Projectile implements KeyListener {
     private int y;
     private Rectangle hitbox;
     private boolean show;
+    private boolean canFire;
     public Projectile(String projectile) {
         this.imageFileName = "images/" + projectile + ".jpg";
         this.image = Wizard.readImage(imageFileName);
         x = 30;
         y = 0;
         hitbox = new Rectangle(x, y,25, 25);
+        canFire = true;
     }
+
+    public boolean isCanFire() {
+        return canFire;
+    }
+
+    public void setCanFire(boolean canFire) {
+        this.canFire = canFire;
+    }
+
     public BufferedImage getImage() {
         return image;
     }

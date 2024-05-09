@@ -16,6 +16,7 @@ public class Wizard {
     private BufferedImage hearts;
     private int heartXSpacing;
     private int heartYSpacing;
+    private boolean nextLine;
 
     public Wizard (String wizNum) {
         health = 15;
@@ -30,6 +31,7 @@ public class Wizard {
         heartYSpacing = 40;
         projectile = new Projectile[2];
         generateProjectiles();
+        nextLine = true;
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile(weapon + "1");
@@ -53,9 +55,9 @@ public class Wizard {
         for (int i = 0; i < health; i++) {
             g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
             heartXSpacing += 75;
-            if (heartXSpacing > 1000) {
-                heartXSpacing = 10;
-            }
+        }
+        if (heartXSpacing >= 1000 || health > 15) {
+            heartXSpacing = 10;
         }
     }
 

@@ -73,10 +73,9 @@ public class DrawPanel extends JPanel implements KeyListener {
     }
     //Enemy AI
     public void updateBossPosition() {
-        while (boss.getY() < 368) {
+        while (boss.getY() < 368 && boss.getHealth() > 0) {
             boss.setY(boss.getY() + 5);
         }
-            boss.setY(boss.getY() - 5);
 
         boss.updateCoords();
         collision.setObject(boss.getHitbox());
@@ -85,21 +84,24 @@ public class DrawPanel extends JPanel implements KeyListener {
         super.paintComponent(g);
 
         //background
-        g.drawImage(stage.getImage(), 0, 0, this);
+        g.drawImage(stage.getImage(), -100, 0, this);
 
         //wizard
         g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
         //wizard health
         wizard.drawHearts(g);
+
         //projectile
         if (projectile.isShow()) {
             g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
         }
+
         //debugging collision
         g.drawRect(projectile.getX(), projectile.getY(), 25,25);
 
         //boss
         g.drawImage(boss.getImage(), boss.getX(), boss.getY(), this);
+
         //debugging collision
         g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());
 
@@ -134,7 +136,7 @@ public class DrawPanel extends JPanel implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             leftPressed = false;
         }
-        if (e.getKeyCode() == 32) {
+        if (e.getKeyCode() == 32 && projectile.isCanFire()) {
             projectile.setFiring(true);
             projectile.setShow(true);
             projectile.setX(wizard.getWizX() + 10);
