@@ -13,15 +13,15 @@ public class Boss {
 
 
     public Boss (String boss) {
-        health = 100;
-        damage = 2;
+        health = 30;
+        damage = 5;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
-        x = 1600;
-        y = 760;
-        WIDTH = 175;
-        HEIGHT = 175;
-        hitbox = new Rectangle(x + 50, y, WIDTH, HEIGHT);
+        x = 1400;
+        y = 650;
+        WIDTH = 450;
+        HEIGHT = 335;
+        hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
     }
     public void updateCoords() {
         hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);

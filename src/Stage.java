@@ -5,10 +5,6 @@ public class Stage {
     private String imageFileName;
     private Wizard[] wizard;
     private Boss[] boss;
-    private Frame frame;
-    public Stage(Frame frame) {
-        this.frame = frame;
-    }
     public Stage(String stageNum) {
         this.imageFileName = "images/background" + stageNum + ".jpg";
         this.image = Wizard.readImage(imageFileName);

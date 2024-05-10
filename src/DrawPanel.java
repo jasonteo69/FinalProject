@@ -59,6 +59,7 @@ public class DrawPanel extends JPanel implements KeyListener {
                 projectile.setShow(false);
             }
         }
+        //collision detection
         projectile.updateCoords();
         collision.setProjectile(projectile.getHitbox());
         updateBossPosition();
@@ -66,9 +67,15 @@ public class DrawPanel extends JPanel implements KeyListener {
             projectile.setX(-1);
             projectile.setShow(false);
             boss.setHealth(boss.getHealth() - wizard.getDamage());
-            wizard.setHealth(wizard.getHealth() - boss.getDamage());
             projectile.setShow(false);
             System.out.println(boss.getHealth());
+        }
+        if (boss.getHealth() <= 0) {
+            //next level call
+            stage = new Stage("2");
+            wizard = stage.getWizard()[1];
+            projectile = wizard.getProjectile()[1];
+            boss = stage.getBoss()[1];
         }
     }
     //Enemy AI
@@ -87,23 +94,29 @@ public class DrawPanel extends JPanel implements KeyListener {
         g.drawImage(stage.getImage(), -100, 0, this);
 
         //wizard
-        g.drawImage(wizard.getImage(), wizard.getWizX(), wizard.getWizY(), this);
+        wizard.drawWizard(g);
         //wizard health
         wizard.drawHearts(g);
 
         //projectile
         if (projectile.isShow()) {
-            g.drawImage(projectile.getImage(), projectile.getX(), projectile.getY(), this);
+            projectile.drawProjectle(g);
         }
 
         //debugging collision
-        g.drawRect(projectile.getX(), projectile.getY(), 25,25);
+        //g.drawRect(projectile.getX(), projectile.getY(), 75,75);
 
         //boss
         g.drawImage(boss.getImage(), boss.getX(), boss.getY(), this);
+        //boss health
+        g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 45));
+        g.setColor(new Color(207, 3, 252));
+        g.drawString("Health: ", boss.getX(), boss.getY() - 55);
+        g.setColor(Color.red);
+        g.fillRect(boss.getX() + 150, boss.getY() - 100, (int)(200 * boss.getHealth() / 25), 50);
 
         //debugging collision
-        g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());
+        //g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());
 
     }
     @Override

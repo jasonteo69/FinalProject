@@ -13,12 +13,15 @@ public class Projectile implements KeyListener {
     private boolean show;
     private boolean canFire;
     public Projectile(String projectile) {
-        this.imageFileName = "images/" + projectile + ".jpg";
+        this.imageFileName = "images/" + projectile + ".png";
         this.image = Wizard.readImage(imageFileName);
         x = 30;
         y = 0;
-        hitbox = new Rectangle(x, y,25, 25);
+        hitbox = new Rectangle(x, y,75, 75);
         canFire = true;
+    }
+    public void drawProjectle(Graphics g) {
+        g.drawImage(image, x, y, null);
     }
 
     public boolean isCanFire() {

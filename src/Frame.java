@@ -36,6 +36,7 @@ public class Frame extends JFrame implements Runnable {
             //movement
             drawing.updateWizardPosition();
             drawing.updateProjectilePosition();
+            drawing.updateBossPosition();
             repaint();
             try {
 
