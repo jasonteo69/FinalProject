@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -80,10 +82,19 @@ public class DrawPanel extends JPanel implements KeyListener {
     }
     //Enemy AI
     public void updateBossPosition() {
-        while (boss.getY() < 368 && boss.getHealth() > 0) {
-            boss.setY(boss.getY() + 5);
+        Timer timer = new Timer(1000, null);
+        timer.start();
+        if (boss.isCanMove()) {
+            boss.setY(boss.getY() - 1);
+            if (boss.getY() < 100) {
+                boss.setCanMove(false);
+            }
+        } else {
+            boss.setY(boss.getY() + 1);
+            if (boss.getY() > 650) {
+                boss.setCanMove(true);
+            }
         }
-
         boss.updateCoords();
         collision.setObject(boss.getHitbox());
     }
@@ -109,11 +120,7 @@ public class DrawPanel extends JPanel implements KeyListener {
         //boss
         g.drawImage(boss.getImage(), boss.getX(), boss.getY(), this);
         //boss health
-        g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 45));
-        g.setColor(new Color(207, 3, 252));
-        g.drawString("Health: ", boss.getX(), boss.getY() - 55);
-        g.setColor(Color.red);
-        g.fillRect(boss.getX() + 150, boss.getY() - 100, (int)(200 * boss.getHealth() / 25), 50);
+        boss.drawHealthBar(g);
 
         //debugging collision
         //g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());

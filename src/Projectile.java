@@ -69,7 +69,7 @@ public class Projectile implements KeyListener {
     }
 
     public void shoot() {
-        x += 10;
+        x += 25;
     }
     public int getX() {
         return x;

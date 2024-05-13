@@ -53,6 +53,9 @@ public class Wizard {
         for (int i = 0; i < health; i++) {
             g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
             heartXSpacing += 75;
+            if (heartXSpacing > 1000) {
+                heartXSpacing -= 75;
+            }
         }
     }
     public void drawWizard(Graphics g) {

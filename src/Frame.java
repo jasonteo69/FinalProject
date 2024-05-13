@@ -46,7 +46,7 @@ public class Frame extends JFrame implements Runnable {
                 end += start; //time for next "frame" to be drawn
 
             } catch (InterruptedException e) {
-
+                windowThread.start();
                 throw new RuntimeException(e);
             }
 

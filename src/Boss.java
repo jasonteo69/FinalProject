@@ -10,6 +10,7 @@ public class Boss {
     private int x, y;
     private final int WIDTH;
     private final int HEIGHT;
+    private boolean canMove;
 
 
     public Boss (String boss) {
@@ -22,10 +23,27 @@ public class Boss {
         WIDTH = 450;
         HEIGHT = 335;
         hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
+        canMove = true;
     }
     public void updateCoords() {
         hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);
     }
+    public void drawHealthBar(Graphics g) {
+        g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 45));
+        g.setColor(new Color(207, 3, 252));
+        g.drawString("Health: ", x, y - 55);
+        g.setColor(Color.red);
+        g.fillRect(x + 150, y - 100, (int)(200 * health / 25), 50);
+    }
+
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
+    }
+
     public int getHealth() {
         return health;
     }
