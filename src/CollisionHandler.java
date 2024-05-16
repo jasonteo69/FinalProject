@@ -1,19 +1,11 @@
 import java.awt.*;
 
-public class Collision {
+public class CollisionHandler {
     private Rectangle object;
     private Rectangle projectile;
     private boolean touching;
-    public Frame gamePanel;
 
-    public Collision(Rectangle object, Rectangle projectile) {
-        this.object = object;
-        this.projectile = projectile;
-    }
-    public Collision(Frame gp) {
-        gamePanel = gp;
-    }
-    public Collision() {
+    public CollisionHandler() {
         object = new Rectangle();
         projectile = new Rectangle();
     }
@@ -26,27 +18,13 @@ public class Collision {
         }
         return touching;
     }
-    public boolean isTouching() {
-        return touching;
-    }
-
-    public Rectangle getObject() {
-        return object;
-    }
 
     public void setObject(Rectangle object) {
         this.object = object;
-    }
-
-    public Rectangle getProjectile() {
-        return projectile;
     }
 
     public void setProjectile(Rectangle projectile) {
         this.projectile = projectile;
     }
 
-    public void setTouching(boolean touching) {
-        this.touching = touching;
-    }
 }

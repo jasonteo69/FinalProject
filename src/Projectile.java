@@ -28,17 +28,6 @@ public class Projectile implements KeyListener {
         return canFire;
     }
 
-    public void setCanFire(boolean canFire) {
-        this.canFire = canFire;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
 
     public boolean isShow() {
         return show;
@@ -48,21 +37,10 @@ public class Projectile implements KeyListener {
         this.show = show;
     }
 
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
     public boolean isFiring() {
         return isFiring;
     }
 
-    public int getY() {
-        return y;
-    }
 
     public void setFiring(boolean firing) {
         isFiring = firing;
@@ -87,9 +65,6 @@ public class Projectile implements KeyListener {
         return hitbox;
     }
 
-    public void setHitbox(Rectangle hitbox) {
-        this.hitbox = hitbox;
-    }
     public void updateCoords() {
         hitbox.setBounds(x, y, 25, 25);
     }

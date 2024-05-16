@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -9,16 +7,22 @@ public class DrawPanel extends JPanel implements KeyListener {
     private Wizard wizard;
     private boolean upPressed, downPressed, leftPressed, rightPressed;
     private Stage stage;
-    private Projectile projectile;
+    private Projectile wizardProjectile;
+    private Projectile bossProjectile;
     private Boss boss;
-    private Collision collision;
+    private CollisionHandler collision;
+    private int screenWidth;
+    private int screenHeight;
 
     public DrawPanel () {
+        screenWidth = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        screenHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         stage = new Stage("1");
         boss = stage.getBoss()[0];
         wizard = stage.getWizard()[0];
-        projectile = wizard.getProjectile()[0];
-        collision = new Collision();
+        wizardProjectile = wizard.getProjectile()[0];
+        bossProjectile = boss.getProjectile()[0];
+        collision = new CollisionHandler();
     }
     public void updateWizardPosition() {
         //diagonal movement
@@ -46,63 +50,64 @@ public class DrawPanel extends JPanel implements KeyListener {
             }
         }
         //setting bounds
-        if (wizard.getWizX() >= 2000) {
+        if (wizard.getWizX() >= (int) (screenWidth * 1.0417)) {
             wizard.setWizX(0);
         }
-        if (wizard.getWizY() >= 1000) {
+        if (wizard.getWizY() >= (int) (screenWidth * 0.5209)) {
             wizard.setWizY(0);
         }
     }
     public void updateProjectilePosition() {
-        if (projectile.isFiring()) {
-            projectile.shoot();
-            if (projectile.getX() >= 2500 || !projectile.isShow()) {
-                projectile.setFiring(false);
-                projectile.setShow(false);
+        if (wizardProjectile.isFiring()) {
+            wizardProjectile.shoot();
+            if (wizardProjectile.getX() >= (int) (screenWidth * 1.3026) || !wizardProjectile.isShow()) {
+                wizardProjectile.setFiring(false);
+                wizardProjectile.setShow(false);
             }
         }
         //collision detection
-        projectile.updateCoords();
-        collision.setProjectile(projectile.getHitbox());
+        wizardProjectile.updateCoords();
+        collision.setProjectile(wizardProjectile.getHitbox());
         updateBossPosition();
         if (collision.collided()) {
-            projectile.setX(-1);
-            projectile.setShow(false);
+            wizardProjectile.setX(-1);
+            wizardProjectile.setShow(false);
             boss.setHealth(boss.getHealth() - wizard.getDamage());
-            projectile.setShow(false);
+            wizardProjectile.setShow(false);
             System.out.println(boss.getHealth());
         }
         if (boss.getHealth() <= 0) {
             //next level call
             stage = new Stage("2");
             wizard = stage.getWizard()[1];
-            projectile = wizard.getProjectile()[1];
+            wizardProjectile = wizard.getProjectile()[1];
             boss = stage.getBoss()[1];
         }
     }
     //Enemy AI
     public void updateBossPosition() {
-        Timer timer = new Timer(1000, null);
-        timer.start();
         if (boss.isCanMove()) {
             boss.setY(boss.getY() - 1);
-            if (boss.getY() < 100) {
+            if (boss.getY() < (int) (screenHeight * .093)) {
                 boss.setCanMove(false);
             }
         } else {
             boss.setY(boss.getY() + 1);
-            if (boss.getY() > 650) {
+            if (boss.getY() > (int) (screenHeight * .602)) {
                 boss.setCanMove(true);
             }
         }
         boss.updateCoords();
         collision.setObject(boss.getHitbox());
     }
+    public void bossAttack() {
+
+    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         //background
-        g.drawImage(stage.getImage(), -100, 0, this);
+        g.drawImage(stage.getImage(), 0, 0, this);
 
         //wizard
         wizard.drawWizard(g);
@@ -110,8 +115,8 @@ public class DrawPanel extends JPanel implements KeyListener {
         wizard.drawHearts(g);
 
         //projectile
-        if (projectile.isShow()) {
-            projectile.drawProjectle(g);
+        if (wizardProjectile.isShow()) {
+            wizardProjectile.drawProjectle(g);
         }
 
         //debugging collision
@@ -156,11 +161,11 @@ public class DrawPanel extends JPanel implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             leftPressed = false;
         }
-        if (e.getKeyCode() == 32 && projectile.isCanFire()) {
-            projectile.setFiring(true);
-            projectile.setShow(true);
-            projectile.setX(wizard.getWizX() + 10);
-            projectile.setY(wizard.getWizY());
+        if (e.getKeyCode() == 32 && wizardProjectile.isCanFire()) {
+            wizardProjectile.setFiring(true);
+            wizardProjectile.setShow(true);
+            wizardProjectile.setX(wizard.getWizX() + 10);
+            wizardProjectile.setY(wizard.getWizY());
         }
     }
     @Override

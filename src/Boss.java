@@ -11,20 +11,23 @@ public class Boss {
     private final int WIDTH;
     private final int HEIGHT;
     private boolean canMove;
-
+    private Projectile[] projectile;
 
     public Boss (String boss) {
         health = 30;
         damage = 5;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
-        x = 1400;
-        y = 650;
+        x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * .7292);
+        y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * .602);
         WIDTH = 450;
         HEIGHT = 335;
         hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
         canMove = true;
+        projectile = new Projectile[2];
+        generateProjectiles();
     }
+
     public void updateCoords() {
         hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);
     }
@@ -34,6 +37,13 @@ public class Boss {
         g.drawString("Health: ", x, y - 55);
         g.setColor(Color.red);
         g.fillRect(x + 150, y - 100, (int)(200 * health / 25), 50);
+    }
+    private void generateProjectiles() {
+        projectile[0] = new Projectile("bullet1");
+        projectile[1] = new Projectile("bullet2");
+    }
+    public void shoot() {
+
     }
 
     public boolean isCanMove() {
@@ -52,44 +62,16 @@ public class Boss {
         this.health = health;
     }
 
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
     public BufferedImage getImage() {
         return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
     public Rectangle getHitbox() {
         return hitbox;
     }
 
-    public void setHitbox(Rectangle hitbox) {
-        this.hitbox = hitbox;
-    }
-
     public int getX() {
         return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     public int getY() {
@@ -99,11 +81,9 @@ public class Boss {
     public void setY(int y) {
         this.y = y;
     }
-    public int getWIDTH() {
-        return WIDTH;
+
+    public Projectile[] getProjectile() {
+        return projectile;
     }
 
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
 }

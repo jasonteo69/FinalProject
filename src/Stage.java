@@ -27,31 +27,14 @@ public class Stage {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
 
     public Wizard[] getWizard() {
         return wizard;
     }
 
-    public void setWizard(Wizard[] wizard) {
-        this.wizard = wizard;
-    }
 
     public Boss[] getBoss() {
         return boss;
     }
 
-    public void setBoss(Boss[] boss) {
-        this.boss = boss;
-    }
 }

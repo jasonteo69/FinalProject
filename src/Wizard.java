@@ -16,6 +16,7 @@ public class Wizard {
     private BufferedImage hearts;
     private int heartXSpacing;
     private int heartYSpacing;
+    private Rectangle hitbox;
 
     public Wizard (String wizNum) {
         health = 15;
@@ -25,18 +26,16 @@ public class Wizard {
         this.image = readImage(imageFileName);
         hearts = readImage("images/health1.png");
         wizX = 0;
-        wizY = 900;
+        wizY = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * .8);
         heartXSpacing = 10;
         heartYSpacing = 40;
         projectile = new Projectile[2];
         generateProjectiles();
+        hitbox = new Rectangle(wizX, wizY, 100, 100);
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile(weapon + "1");
         projectile[1] = new Projectile(weapon + "2");
-    }
-    public BufferedImage getImage() {
-        return image;
     }
 
     public static BufferedImage readImage(String imageName) {
@@ -54,7 +53,7 @@ public class Wizard {
             g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
             heartXSpacing += 75;
             if (heartXSpacing > 1000) {
-                heartXSpacing -= 75;
+                heartXSpacing = 0;
             }
         }
     }
@@ -62,52 +61,8 @@ public class Wizard {
         g.drawImage(image, wizX, wizY, null);
     }
 
-    public void setProjectile(Projectile[] projectile) {
-        this.projectile = projectile;
-    }
-
-    public BufferedImage getHearts() {
-        return hearts;
-    }
-
-    public void setHearts(BufferedImage hearts) {
-        this.hearts = hearts;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getDamage() {
         return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public String getWeapon() {
-        return weapon;
-    }
-
-    public void setWeapon(String weapon) {
-        this.weapon = weapon;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
     }
 
     public int getWizX() {
@@ -129,5 +84,4 @@ public class Wizard {
     public Projectile[] getProjectile() {
         return projectile;
     }
-
 }
