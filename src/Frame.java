@@ -6,7 +6,7 @@ public class Frame extends JFrame implements Runnable {
     private Thread windowThread;
     public Frame(String display) {
         super(display);
-        drawing = new DrawPanel();
+        drawing = new DrawPanel(this);
         this.add(drawing);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(1650, 1080);
@@ -37,6 +37,7 @@ public class Frame extends JFrame implements Runnable {
             drawing.updateWizardPosition();
             drawing.updateProjectilePosition();
             drawing.updateBossPosition();
+            drawing.bossAttack();
             repaint();
             try {
                 double timeLefttoDraw = end - System.nanoTime();
@@ -44,10 +45,17 @@ public class Frame extends JFrame implements Runnable {
                 Thread.sleep((long) timeLefttoDraw); //sleep counts time in milliseconds
                 end += start; //time for next "frame" to be drawn
             } catch (InterruptedException e) {
-                windowThread.start();
                 throw new RuntimeException(e);
             }
 
         }
+    }
+
+    public Thread getWindowThread() {
+        return windowThread;
+    }
+
+    public void setWindowThread(Thread windowThread) {
+        this.windowThread = windowThread;
     }
 }

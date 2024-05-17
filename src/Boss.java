@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Boss {
     private int health;
@@ -12,6 +14,8 @@ public class Boss {
     private final int HEIGHT;
     private boolean canMove;
     private Projectile[] projectile;
+    private int projectilex;
+    private int projectiley;
 
     public Boss (String boss) {
         health = 30;
@@ -25,7 +29,13 @@ public class Boss {
         hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
         canMove = true;
         projectile = new Projectile[2];
+        projectilex = x;
+        projectiley = y;
         generateProjectiles();
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public void updateCoords() {
@@ -39,11 +49,20 @@ public class Boss {
         g.fillRect(x + 150, y - 100, (int)(200 * health / 25), 50);
     }
     private void generateProjectiles() {
-        projectile[0] = new Projectile("bullet1");
-        projectile[1] = new Projectile("bullet2");
+        projectile[0] = new Projectile("dragonfire", 100, 150);
+        projectile[1] = new Projectile("bullet2", 100, 150);
     }
     public void shoot() {
 
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                projectilex -= 10;
+            }
+        };
+        Timer timer = new Timer();
+        long delay = 3000L;
+        timer.schedule(task, delay);
     }
 
     public boolean isCanMove() {

@@ -9,20 +9,23 @@ public class Projectile implements KeyListener {
     private boolean isFiring;
     private int x;
     private int y;
+    private int width;
+    private int height;
     private Rectangle hitbox;
     private boolean show;
     private boolean canFire;
-    public Projectile(String projectile) {
+    public Projectile(String projectile, int width, int height) {
         this.imageFileName = "images/" + projectile + ".png";
         this.image = Wizard.readImage(imageFileName);
         x = 30;
         y = 0;
-        hitbox = new Rectangle(x, y,75, 75);
+        hitbox = new Rectangle(x, y,width, height);
         canFire = true;
     }
     public void drawProjectle(Graphics g) {
         g.drawImage(image, x, y, null);
     }
+
 
     public boolean isCanFire() {
         return canFire;
@@ -46,8 +49,12 @@ public class Projectile implements KeyListener {
         isFiring = firing;
     }
 
-    public void shoot() {
-        x += 25;
+    public void shoot(int speed, String direction) {
+        if (direction.equals("right")) {
+            x += speed;
+        } else {
+            x -= speed;
+        }
     }
     public int getX() {
         return x;

@@ -13,8 +13,10 @@ public class DrawPanel extends JPanel implements KeyListener {
     private CollisionHandler collision;
     private int screenWidth;
     private int screenHeight;
+    private Frame gp;
 
-    public DrawPanel () {
+    public DrawPanel (Frame gp) {
+        this.gp = gp;
         screenWidth = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         screenHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         stage = new Stage("1");
@@ -59,7 +61,7 @@ public class DrawPanel extends JPanel implements KeyListener {
     }
     public void updateProjectilePosition() {
         if (wizardProjectile.isFiring()) {
-            wizardProjectile.shoot();
+            wizardProjectile.shoot(25, "right");
             if (wizardProjectile.getX() >= (int) (screenWidth * 1.3026) || !wizardProjectile.isShow()) {
                 wizardProjectile.setFiring(false);
                 wizardProjectile.setShow(false);
@@ -74,10 +76,14 @@ public class DrawPanel extends JPanel implements KeyListener {
             wizardProjectile.setShow(false);
             boss.setHealth(boss.getHealth() - wizard.getDamage());
             wizardProjectile.setShow(false);
-            System.out.println(boss.getHealth());
+            wizard.setHealth(wizard.getHealth() - boss.getDamage());
+            System.out.println(wizard.getHealth());
         }
         if (boss.getHealth() <= 0) {
             //next level call
+            if (!gp.getWindowThread().isAlive()) {
+                gp.startThread();
+            }
             stage = new Stage("2");
             wizard = stage.getWizard()[1];
             wizardProjectile = wizard.getProjectile()[1];
@@ -91,7 +97,7 @@ public class DrawPanel extends JPanel implements KeyListener {
             if (boss.getY() < (int) (screenHeight * .093)) {
                 boss.setCanMove(false);
             }
-        } else {
+            } else {
             boss.setY(boss.getY() + 1);
             if (boss.getY() > (int) (screenHeight * .602)) {
                 boss.setCanMove(true);
@@ -101,13 +107,13 @@ public class DrawPanel extends JPanel implements KeyListener {
         collision.setObject(boss.getHitbox());
     }
     public void bossAttack() {
-
+        bossProjectile.shoot(15, "left");
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         //background
-        g.drawImage(stage.getImage(), 0, 0, this);
+        g.drawImage(stage.getImage(), getX(), getY(), this);
 
         //wizard
         wizard.drawWizard(g);
@@ -126,6 +132,8 @@ public class DrawPanel extends JPanel implements KeyListener {
         g.drawImage(boss.getImage(), boss.getX(), boss.getY(), this);
         //boss health
         boss.drawHealthBar(g);
+        //boss projectile
+        bossProjectile.drawProjectle(g);
 
         //debugging collision
         //g.drawRect(boss.getX() + 50, boss.getY(), boss.getWIDTH(), boss.getHEIGHT());

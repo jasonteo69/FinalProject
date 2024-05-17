@@ -34,8 +34,8 @@ public class Wizard {
         hitbox = new Rectangle(wizX, wizY, 100, 100);
     }
     private void generateProjectiles() {
-        projectile[0] = new Projectile(weapon + "1");
-        projectile[1] = new Projectile(weapon + "2");
+        projectile[0] = new Projectile(weapon + "1", 75, 75);
+        projectile[1] = new Projectile(weapon + "2", 75, 75);
     }
 
     public static BufferedImage readImage(String imageName) {
@@ -83,5 +83,13 @@ public class Wizard {
 
     public Projectile[] getProjectile() {
         return projectile;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
