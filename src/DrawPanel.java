@@ -51,6 +51,7 @@ public class DrawPanel extends JPanel implements KeyListener {
                 wizard.setWizX(wizard.getWizX() - 5);
             }
         }
+        wizard.updateCoords();
         //setting bounds
         if (wizard.getWizX() >= (int) (screenWidth * 1.0417)) {
             wizard.setWizX(0);

@@ -48,6 +48,9 @@ public class Wizard {
             return null;
         }
     }
+    public void updateCoords() {
+        hitbox.setBounds(wizX + 10, wizY, 50, 100);
+    }
     public void drawHearts(Graphics g) {
         for (int i = 0; i < health; i++) {
             g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
@@ -92,4 +95,5 @@ public class Wizard {
     public void setHealth(int health) {
         this.health = health;
     }
+
 }
