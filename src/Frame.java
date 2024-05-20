@@ -44,7 +44,7 @@ public class Frame extends JFrame implements Runnable {
                 timeLefttoDraw /= 1000000; //timeLefttoDraw in milliseconds
                 Thread.sleep((long) timeLefttoDraw); //sleep counts time in milliseconds
                 end += start; //time for next "frame" to be drawn
-            } catch (InterruptedException e) {
+            } catch (IllegalArgumentException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
 

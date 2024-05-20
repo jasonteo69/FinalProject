@@ -5,9 +5,9 @@ public class CollisionHandler {
     private Rectangle projectile;
     private boolean touching;
 
-    public CollisionHandler() {
-        object = new Rectangle();
-        projectile = new Rectangle();
+    public CollisionHandler(Rectangle object, Rectangle projectile) {
+        this.object = object;
+        this.projectile = projectile;
     }
 
     public boolean collided() {

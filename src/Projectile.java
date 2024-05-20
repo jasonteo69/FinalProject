@@ -17,10 +17,11 @@ public class Projectile implements KeyListener {
     public Projectile(String projectile, int width, int height) {
         this.imageFileName = "images/" + projectile + ".png";
         this.image = Wizard.readImage(imageFileName);
-        x = 30;
+        x = 0;
         y = 0;
-        hitbox = new Rectangle(x, y,width, height);
+        hitbox = new Rectangle(x, y, width, height);
         canFire = true;
+        isFiring = false;
     }
     public void drawProjectle(Graphics g) {
         g.drawImage(image, x, y, null);

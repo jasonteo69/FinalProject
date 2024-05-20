@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Boss {
     private int health;
@@ -14,8 +17,6 @@ public class Boss {
     private final int HEIGHT;
     private boolean canMove;
     private Projectile[] projectile;
-    private int projectilex;
-    private int projectiley;
 
     public Boss (String boss) {
         health = 30;
@@ -29,8 +30,6 @@ public class Boss {
         hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
         canMove = true;
         projectile = new Projectile[2];
-        projectilex = x;
-        projectiley = y;
         generateProjectiles();
     }
 
@@ -52,17 +51,17 @@ public class Boss {
         projectile[0] = new Projectile("dragonfire", 100, 150);
         projectile[1] = new Projectile("bullet2", 100, 150);
     }
-    public void shoot() {
-
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                projectilex -= 10;
-            }
-        };
-        Timer timer = new Timer();
-        long delay = 3000L;
-        timer.schedule(task, delay);
+    public void shoot(int projNum) {
+        long time = System.currentTimeMillis();
+        if (System.currentTimeMillis() > time + 2000)
+        {
+            projectile[projNum].setFiring(true);
+            projectile[projNum].setShow(true);
+            projectile[projNum].shoot(15, "left");
+            time = System.currentTimeMillis();
+        }
+        projectile[projNum].setFiring(false);
+        projectile[projNum].setShow(false);
     }
 
     public boolean isCanMove() {
