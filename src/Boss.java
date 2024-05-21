@@ -17,6 +17,7 @@ public class Boss {
     private final int HEIGHT;
     private boolean canMove;
     private Projectile[] projectile;
+    private Timer timer;
 
     public Boss (String boss) {
         health = 30;
@@ -31,6 +32,7 @@ public class Boss {
         canMove = true;
         projectile = new Projectile[2];
         generateProjectiles();
+        timer = new Timer();
     }
 
     public int getDamage() {
@@ -52,16 +54,14 @@ public class Boss {
         projectile[1] = new Projectile("bullet2", 100, 150);
     }
     public void shoot(int projNum) {
-        long time = System.currentTimeMillis();
-        if (System.currentTimeMillis() > time + 2000)
-        {
-            projectile[projNum].setFiring(true);
-            projectile[projNum].setShow(true);
-            projectile[projNum].shoot(15, "left");
-            time = System.currentTimeMillis();
-        }
-        projectile[projNum].setFiring(false);
-        projectile[projNum].setShow(false);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                projectile[projNum].setShow(true);
+                projectile[projNum].setFiring(true);
+                projectile[projNum].shoot(15, "left");
+            }
+        }, 1500, 2500);
     }
 
     public boolean isCanMove() {

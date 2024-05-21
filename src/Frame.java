@@ -4,6 +4,7 @@ import java.awt.*;
 public class Frame extends JFrame implements Runnable {
     private DrawPanel drawing;
     private Thread windowThread;
+    private boolean died;
     public Frame(String display) {
         super(display);
         drawing = new DrawPanel(this);
@@ -45,7 +46,12 @@ public class Frame extends JFrame implements Runnable {
                 Thread.sleep((long) timeLefttoDraw); //sleep counts time in milliseconds
                 end += start; //time for next "frame" to be drawn
             } catch (IllegalArgumentException | InterruptedException e) {
-                throw new RuntimeException(e);
+                died = true;
+                try {
+                    windowThread.join();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
         }
@@ -57,5 +63,9 @@ public class Frame extends JFrame implements Runnable {
 
     public void setWindowThread(Thread windowThread) {
         this.windowThread = windowThread;
+    }
+
+    public boolean isDied() {
+        return died;
     }
 }

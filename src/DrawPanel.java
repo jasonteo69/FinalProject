@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DrawPanel extends JPanel implements KeyListener {
     private Wizard wizard;
@@ -82,9 +85,6 @@ public class DrawPanel extends JPanel implements KeyListener {
         }
         if (boss.getHealth() <= 0) {
             //next level call
-            if (!gp.getWindowThread().isAlive()) {
-                gp.startThread();
-            }
             stage = new Stage("2");
             wizard = stage.getWizard()[1];
             wizardProjectile = wizard.getProjectile()[1];
@@ -109,12 +109,18 @@ public class DrawPanel extends JPanel implements KeyListener {
         collision[0].setObject(boss.getHitbox());
     }
     public void bossAttack() {
-        bossProjectile.setX(boss.getX() - 100);
-        bossProjectile.setY(boss.getY() + 150);
+
+        boss.shoot(0);
+        if (bossProjectile.getX() <= 0) {
+            bossProjectile.setFiring(false);
+            bossProjectile.setShow(false);
+            bossProjectile.setX(boss.getX() - 150);
+            bossProjectile.setY(boss.getY() + 150);
+        }
         bossProjectile.updateCoords();
-        bossProjectile.shoot(15, "left");
         if (collision[1].collided()) {
-            boss.shoot(0);
+            bossProjectile.setShow(false);
+            bossProjectile.setFiring(false);
             wizard.setHealth(wizard.getHealth() - boss.getDamage());
         }
     }
@@ -122,7 +128,7 @@ public class DrawPanel extends JPanel implements KeyListener {
         super.paintComponent(g);
 
         //background
-        g.drawImage(stage.getImage(), getX(), getY(), this);
+        g.drawImage(stage.getImage(), -100, getY(), this);
 
         //wizard
         wizard.drawWizard(g);
@@ -142,7 +148,7 @@ public class DrawPanel extends JPanel implements KeyListener {
         //boss health
         boss.drawHealthBar(g);
         //boss projectile
-        if (bossProjectile.isCanFire()) {
+        if (bossProjectile.isShow()) {
             bossProjectile.drawProjectle(g);
         }
 
