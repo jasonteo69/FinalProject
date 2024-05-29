@@ -53,7 +53,7 @@ public class Boss {
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile("dragonfire", 100, 150);
-        projectile[1] = new Projectile("bullet2", 100, 150);
+        projectile[1] = new Projectile("dragonfire2", 100, 150);
     }
     public void shoot(int projNum, int speed) {
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -64,8 +64,11 @@ public class Boss {
                 projectile[projNum].shoot(speed, "left");
             }
         }, 1500, 2500);
+        if (!canMove) {
+            projectile[projNum].setShow(false);
+            projectile[projNum].setFiring(false);
+        }
     }
-
 
     public boolean isCanMove() {
         return canMove;

@@ -65,6 +65,10 @@ public class Projectile implements KeyListener {
         this.x = x;
     }
 
+    public int getY() {
+        return y;
+    }
+
     public void setY(int y) {
         this.y = y;
     }

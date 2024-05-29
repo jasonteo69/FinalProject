@@ -14,6 +14,7 @@ public class Frame extends JFrame implements Runnable {
         level = 1;
         drawing = new DrawPanel(this);
         fileHandler = new FileHandler(drawing);
+        fileHandler.writeToFile(level);
         this.add(drawing);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(1650, 1080);
