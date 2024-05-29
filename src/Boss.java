@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Boss {
     private int health;
@@ -18,6 +17,7 @@ public class Boss {
     private boolean canMove;
     private Projectile[] projectile;
     private Timer timer;
+
 
     public Boss (String boss) {
         health = 30;
@@ -35,9 +35,11 @@ public class Boss {
         timer = new Timer();
     }
 
+
     public int getDamage() {
         return damage;
     }
+
 
     public void updateCoords() {
         hitbox.setBounds(x + 50, y, WIDTH, HEIGHT);
@@ -53,55 +55,67 @@ public class Boss {
         projectile[0] = new Projectile("dragonfire", 100, 150);
         projectile[1] = new Projectile("bullet2", 100, 150);
     }
-    public void shoot(int projNum) {
+    public void shoot(int projNum, int speed) {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 projectile[projNum].setShow(true);
                 projectile[projNum].setFiring(true);
-                projectile[projNum].shoot(15, "left");
+                projectile[projNum].shoot(speed, "left");
             }
         }, 1500, 2500);
     }
+
 
     public boolean isCanMove() {
         return canMove;
     }
 
+
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
+
 
     public int getHealth() {
         return health;
     }
 
+
     public void setHealth(int health) {
         this.health = health;
     }
+
 
     public BufferedImage getImage() {
         return image;
     }
 
+
     public Rectangle getHitbox() {
         return hitbox;
     }
+
 
     public int getX() {
         return x;
     }
 
+
     public int getY() {
         return y;
     }
+
 
     public void setY(int y) {
         this.y = y;
     }
 
+
     public Projectile[] getProjectile() {
         return projectile;
     }
 
+
 }
+
