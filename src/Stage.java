@@ -18,8 +18,8 @@ public class Stage {
         wizard[1] = new Wizard("2");
     }
     private void generateBoss() {
-        boss[0] = new Boss("dragon1");
-        boss[1] = new Boss("dragon2");
+        boss[0] = new Boss("dragon1", 450, 335);
+        boss[1] = new Boss("dragon2", 450, 500);
 
     }
 

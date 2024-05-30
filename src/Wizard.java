@@ -26,7 +26,7 @@ public class Wizard {
         this.image = readImage(imageFileName);
         hearts = readImage("images/health1.png");
         wizX = 0;
-        wizY = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * .8);
+        wizY = (int) (Frame.screenHeight * .8);
         heartXSpacing = 10;
         heartYSpacing = 40;
         projectile = new Projectile[2];

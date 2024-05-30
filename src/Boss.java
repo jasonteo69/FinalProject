@@ -12,22 +12,22 @@ public class Boss {
     private BufferedImage image;
     private Rectangle hitbox;
     private int x, y;
-    private final int WIDTH;
-    private final int HEIGHT;
+    private int WIDTH;
+    private int HEIGHT;
     private boolean canMove;
     private Projectile[] projectile;
     private Timer timer;
 
 
-    public Boss (String boss) {
+    public Boss (String boss, int width, int height) {
         health = 30;
         damage = 5;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * .7292);
         y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * .602);
-        WIDTH = 450;
-        HEIGHT = 335;
+        WIDTH = width;
+        HEIGHT = height;
         hitbox = new Rectangle(x + 100, y, WIDTH, HEIGHT);
         canMove = true;
         projectile = new Projectile[2];
@@ -53,7 +53,7 @@ public class Boss {
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile("dragonfire", 100, 150);
-        projectile[1] = new Projectile("dragonfire2", 100, 150);
+        projectile[1] = new Projectile("dragonfire2", 290, 290);
     }
     public void shoot(int projNum, int speed) {
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -64,10 +64,6 @@ public class Boss {
                 projectile[projNum].shoot(speed, "left");
             }
         }, 1500, 2500);
-        if (!canMove) {
-            projectile[projNum].setShow(false);
-            projectile[projNum].setFiring(false);
-        }
     }
 
     public boolean isCanMove() {

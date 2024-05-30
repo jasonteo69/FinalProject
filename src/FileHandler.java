@@ -1,15 +1,14 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 
 public class FileHandler {
     private DrawPanel dp;
-    private static int writeTracker;
-    public FileHandler(DrawPanel dp) {
-        this.dp = dp;
+    public FileHandler() {
+
     }
-    public void writeToFile(int level) {
-        writeTracker++;
+    public void saveProgress(int level) {
         if (level == 1) {
             try {
                 FileWriter myWriter = new FileWriter("levelInfo/currentPosition");

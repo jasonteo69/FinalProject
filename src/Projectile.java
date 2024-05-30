@@ -9,8 +9,6 @@ public class Projectile implements KeyListener {
     private boolean isFiring;
     private int x;
     private int y;
-    private int width;
-    private int height;
     private Rectangle hitbox;
     private boolean show;
     private boolean canFire;
