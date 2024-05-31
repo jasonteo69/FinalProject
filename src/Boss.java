@@ -115,6 +115,5 @@ public class Boss {
         return projectile;
     }
 
-
 }
 

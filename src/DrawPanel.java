@@ -122,7 +122,15 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         if (collision[1].collided()) {
             bossProjectile.setShow(false);
             bossProjectile.setFiring(false);
+            bossProjectile.setX(boss.getX() - 150);
+            bossProjectile.setY(boss.getY() + 150);
+            wizard.setHit(true);
             wizard.setHealth(wizard.getHealth() - boss.getDamage());
+            if (wizard.getHealth() >= 0) {
+
+            }
+        } else {
+            wizard.setHit(false);
         }
     }
     public void paintComponent(Graphics g) {
@@ -160,7 +168,8 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
                 bossProjectile.drawProjectle(g);
             }
 
-
+            g.drawRect(wizard.getWizX(), wizard.getWizY(), 80, 100);
+            g.drawRect(bossProjectile.getX(), bossProjectile.getY(), 100, 150);
         }
     }
     @Override

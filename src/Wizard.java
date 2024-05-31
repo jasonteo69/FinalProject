@@ -14,9 +14,10 @@ public class Wizard {
     private int wizY;
     private Projectile[] projectile;
     private BufferedImage hearts;
-    private int heartXSpacing;
-    private int heartYSpacing;
     private Rectangle hitbox;
+    private boolean hit;
+    private int limit;
+
 
     public Wizard (String wizNum) {
         health = 15;
@@ -25,13 +26,12 @@ public class Wizard {
         this.imageFileName = "images/wizard" + wizNum + ".png";
         this.image = readImage(imageFileName);
         hearts = readImage("images/health1.png");
-        wizX = 0;
+        wizX = (int) (Frame.screenWidth * .05);
         wizY = (int) (Frame.screenHeight * .8);
-        heartXSpacing = 10;
-        heartYSpacing = 40;
         projectile = new Projectile[2];
         generateProjectiles();
         hitbox = new Rectangle(wizX, wizY, 100, 100);
+        limit = 3;
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile(weapon + "1", 75, 75);
@@ -52,11 +52,12 @@ public class Wizard {
         hitbox.setBounds(wizX + 10, wizY, 50, 100);
     }
     public void drawHearts(Graphics g) {
-        for (int i = 0; i < health; i++) {
-            g.drawImage(hearts, heartXSpacing, heartYSpacing, null);
-            heartXSpacing += 75;
-            if (heartXSpacing > 1000) {
-                heartXSpacing = 0;
+        int spacing = (int) (wizX * .5);
+        for (int i = 0; i < limit; i++) {
+            g.drawImage(hearts, spacing, wizY - (int) (Frame.screenHeight * .1), null);
+            spacing += (int) (Frame.screenWidth * .05);
+            if (hit) {
+                limit--;
             }
         }
     }
@@ -100,7 +101,11 @@ public class Wizard {
         return hitbox;
     }
 
-    public void setHitbox(Rectangle hitbox) {
-        this.hitbox = hitbox;
+    public boolean isHit() {
+        return hit;
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
     }
 }
