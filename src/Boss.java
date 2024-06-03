@@ -17,6 +17,8 @@ public class Boss {
     private boolean canMove;
     private Projectile[] projectile;
     private Timer timer;
+    private long nextShot = 0;
+    private long recoilTime = 1000;
 
 
     public Boss (String boss, int width, int height) {
@@ -55,15 +57,12 @@ public class Boss {
         projectile[0] = new Projectile("dragonfire", 100, 150);
         projectile[1] = new Projectile("dragonfire2", 290, 290);
     }
-    public void shoot(int projNum, int speed) {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                projectile[projNum].setShow(true);
-                projectile[projNum].setFiring(true);
-                projectile[projNum].shoot(speed, "left");
-            }
-        }, 1500, 2500);
+    public void shoot(int projNum) {
+        projectile[projNum].setCanFire(true);
+        projectile[projNum].setShow(true);
+        if (System.currentTimeMillis() > nextShot) {
+            nextShot = System.currentTimeMillis() + recoilTime;
+        }
     }
 
     public boolean isCanMove() {

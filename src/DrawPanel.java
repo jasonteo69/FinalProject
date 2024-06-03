@@ -16,6 +16,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
     private final Frame gp;
     private int projNum;
     private boolean drawRest;
+    private boolean start;
 
     public DrawPanel (Frame gp) {
         this.gp = gp;
@@ -28,6 +29,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         collision[0] = new CollisionHandler(boss.getHitbox(), wizardProjectile.getHitbox());
         collision[1] = new CollisionHandler(wizard.getHitbox(), bossProjectile.getHitbox());
         projNum = 0;
+        start = true;
     }
     public void updateWizardPosition() {
         //diagonal movement
@@ -111,7 +113,11 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         collision[0].setObject(boss.getHitbox());
     }
     public void bossAttack() {
-        boss.shoot(projNum, 15);
+        boss.shoot(projNum);
+        if (bossProjectile.isCanFire()) {
+            bossProjectile.setFiring(true);
+            bossProjectile.shoot(15, "left");
+        }
         if (bossProjectile.getX() <= 0) {
             bossProjectile.setFiring(false);
             bossProjectile.setShow(false);
@@ -126,8 +132,10 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             bossProjectile.setY(boss.getY() + 150);
             wizard.setHit(true);
             wizard.setHealth(wizard.getHealth() - boss.getDamage());
-            if (wizard.getHealth() >= 0) {
-
+            System.out.println(wizard.getHealth());
+            if (wizard.getHealth() <= 0) {
+                stage = new Stage("3");
+                drawRest = false;
             }
         } else {
             wizard.setHit(false);
@@ -137,11 +145,11 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         super.paintComponent(g);
 
 
-        if (!drawRest) {
+        if (!drawRest && start) {
             g.drawImage(gp.getLevelScreen().getImage(), getX(), getY(), Frame.screenWidth, Frame.screenHeight, this);
             gp.getLevelScreen().drawButton1(g);
             gp.getLevelScreen().drawButton2(g);
-        } else {
+        } else if (drawRest) {
 
             //background
             g.drawImage(stage.getImage(), -100, getY(), this);
@@ -170,6 +178,19 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
 
             g.drawRect(wizard.getWizX(), wizard.getWizY(), 80, 100);
             g.drawRect(bossProjectile.getX(), bossProjectile.getY(), 100, 150);
+        } else {
+            g.setColor(Color.red);
+            g.fillRect((int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .3), 500, 250);
+            g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 100));
+            g.setColor(Color.darkGray);
+            g.drawString("You Died", (int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .45));
+            for (int i = 1; i < 2; i++) {
+                try {
+                    Thread.sleep(i * 1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
     @Override
@@ -217,8 +238,19 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (gp.getLevelScreen().getNewGame().contains(e.getX(), e.getY())) {
+        if (gp.getLevelScreen().getNewGame().contains(e.getX(), e.getY()) && start) {
             drawRest = true;
+            start = false;
+            stage = new Stage("1");
+            boss = stage.getBoss()[0];
+            wizard = stage.getWizard()[0];
+            wizardProjectile = wizard.getProjectile()[0];
+            bossProjectile = boss.getProjectile()[0];
+            collision = new CollisionHandler[2];
+            collision[0] = new CollisionHandler(boss.getHitbox(), wizardProjectile.getHitbox());
+            collision[1] = new CollisionHandler(wizard.getHitbox(), bossProjectile.getHitbox());
+            projNum = 0;
+            start = true;
         }
         if (gp.getLevelScreen().getSavedFile().contains(e.getX(), e.getY())) {
             gp.getLevelScreen().loadData();
@@ -243,5 +275,9 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public boolean isDrawRest() {
+        return drawRest;
     }
 }

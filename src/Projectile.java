@@ -95,4 +95,8 @@ public class Projectile implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
+
+    public void setCanFire(boolean canFire) {
+        this.canFire = canFire;
+    }
 }

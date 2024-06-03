@@ -53,7 +53,7 @@ public class Wizard {
     }
     public void drawHearts(Graphics g) {
         int spacing = (int) (wizX * .5);
-        for (int i = 0; i < limit; i++) {
+        for (int i = 1; i <= limit; i++) {
             g.drawImage(hearts, spacing, wizY - (int) (Frame.screenHeight * .1), null);
             spacing += (int) (Frame.screenWidth * .05);
             if (hit) {

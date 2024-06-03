@@ -46,10 +46,12 @@ public class Frame extends JFrame implements Runnable {
 
         while (windowThread.isAlive()) {
             //movement
-            drawing.updateWizardPosition();
-            drawing.updateProjectilePosition();
-            drawing.updateBossPosition();
-            drawing.bossAttack();
+            if (drawing.isDrawRest()) {
+                drawing.updateWizardPosition();
+                drawing.updateProjectilePosition();
+                drawing.updateBossPosition();
+                drawing.bossAttack();
+            }
             repaint();
             try {
                 double timeLefttoDraw = end - System.nanoTime();
