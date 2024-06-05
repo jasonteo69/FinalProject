@@ -9,6 +9,8 @@ public class Projectile implements KeyListener {
     private boolean isFiring;
     private int x;
     private int y;
+    private int width;
+    private int height;
     private Rectangle hitbox;
     private boolean show;
     private boolean canFire;
@@ -17,6 +19,8 @@ public class Projectile implements KeyListener {
         this.image = Wizard.readImage(imageFileName);
         x = 0;
         y = 0;
+        this.width = width;
+        this.height = height;
         hitbox = new Rectangle(x, y, width, height);
         canFire = true;
         isFiring = false;
@@ -76,7 +80,7 @@ public class Projectile implements KeyListener {
     }
 
     public void updateCoords() {
-        hitbox.setBounds(x, y, 25, 25);
+        hitbox.setBounds(x, y, width, height);
     }
    public void keyTyped(KeyEvent e) {
         if (e.getKeyCode() == 32) {
@@ -98,5 +102,21 @@ public class Projectile implements KeyListener {
 
     public void setCanFire(boolean canFire) {
         this.canFire = canFire;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

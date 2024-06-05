@@ -86,14 +86,19 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         if (boss.getHealth() <= 0) {
             //next level call
             projNum++;
-            gp.setDied(true);
-            gp.getLevelScreen().setLevel(gp.getLevelScreen().getLevel() + 1);
+            if (gp.getLevelScreen().getLevel() > 2 || projNum >= 2) {
+                drawRest = false;
+                start = false;
+            } else {
+                gp.setDied(true);
+                gp.getLevelScreen().setLevel(gp.getLevelScreen().getLevel() + 1);
 
-            stage = new Stage("2");
-            wizard = stage.getWizard()[1];
-            wizardProjectile = wizard.getProjectile()[1];
-            boss = stage.getBoss()[1];
-            bossProjectile = boss.getProjectile()[1];
+                stage = new Stage("2");
+                wizard = stage.getWizard()[1];
+                wizardProjectile = wizard.getProjectile()[1];
+                boss = stage.getBoss()[1];
+                bossProjectile = boss.getProjectile()[1];
+            }
         }
     }
     //Enemy AI
@@ -134,7 +139,6 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             wizard.setHealth(wizard.getHealth() - boss.getDamage());
             System.out.println(wizard.getHealth());
             if (wizard.getHealth() <= 0) {
-                stage = new Stage("3");
                 drawRest = false;
             }
         } else {
@@ -177,20 +181,13 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             }
 
             g.drawRect(wizard.getWizX(), wizard.getWizY(), 80, 100);
-            g.drawRect(bossProjectile.getX(), bossProjectile.getY(), 100, 150);
+            g.drawRect(bossProjectile.getX(), bossProjectile.getY(), bossProjectile.getWidth(), bossProjectile.getHeight());
         } else {
             g.setColor(Color.red);
             g.fillRect((int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .3), 500, 250);
             g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 100));
             g.setColor(Color.darkGray);
-            g.drawString("You Died", (int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .45));
-            for (int i = 1; i < 2; i++) {
-                try {
-                    Thread.sleep(i * 1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            g.drawString("You Win", (int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .45));
         }
     }
     @Override

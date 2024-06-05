@@ -40,7 +40,7 @@ public class Frame extends JFrame implements Runnable {
     @Override
     public void run() {
 
-        double start = 1000000000 / 60.0; //30 FPS
+        final double start = 1000000000 / 60.0; //60 FPS
         double end = System.nanoTime() + start; //Draws 60 times limit
 
 

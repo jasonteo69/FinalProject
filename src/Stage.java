@@ -5,8 +5,10 @@ public class Stage {
     private String imageFileName;
     private Wizard[] wizard;
     private Boss[] boss;
+    private String stageNum;
     public Stage(String stageNum) {
-        this.imageFileName = "images/background" + stageNum + ".jpg";
+        this.stageNum = stageNum;
+        this.imageFileName = "images/background" + this.stageNum + ".jpg";
         this.image = Wizard.readImage(imageFileName);
         wizard = new Wizard[2];
         boss = new Boss[2];
@@ -37,4 +39,11 @@ public class Stage {
         return boss;
     }
 
+    public String getStageNum() {
+        return stageNum;
+    }
+
+    public void setStageNum(String stageNum) {
+        this.stageNum = stageNum;
+    }
 }

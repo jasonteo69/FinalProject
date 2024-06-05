@@ -1,9 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class Boss {
     private int health;
@@ -16,7 +12,6 @@ public class Boss {
     private int HEIGHT;
     private boolean canMove;
     private Projectile[] projectile;
-    private Timer timer;
     private long nextShot = 0;
     private long recoilTime = 1000;
 
@@ -34,7 +29,6 @@ public class Boss {
         canMove = true;
         projectile = new Projectile[2];
         generateProjectiles();
-        timer = new Timer();
     }
 
 
@@ -54,7 +48,7 @@ public class Boss {
         g.fillRect(x + 150, y - 100, (int)(200 * health / 25), 50);
     }
     private void generateProjectiles() {
-        projectile[0] = new Projectile("dragonfire", 100, 150);
+        projectile[0] = new Projectile("dragonfire", 100, 100);
         projectile[1] = new Projectile("dragonfire2", 290, 290);
     }
     public void shoot(int projNum) {

@@ -35,7 +35,6 @@ public class LevelScreen {
         g.setColor(Color.RED);
         g.setFont(new Font("verdana", Font.BOLD,50));
         g.drawString("Saved File", (int) (Frame.screenWidth * .55), (int) (Frame.screenHeight * .475));
-        g.drawString("hello", Frame.screenWidth, Frame.screenHeight);
     }
 
     public void loadData() {

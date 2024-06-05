@@ -52,9 +52,9 @@ public class Wizard {
         hitbox.setBounds(wizX + 10, wizY, 50, 100);
     }
     public void drawHearts(Graphics g) {
-        int spacing = (int) (wizX * .5);
+        int spacing = (int) (Frame.screenWidth * .001);
         for (int i = 1; i <= limit; i++) {
-            g.drawImage(hearts, spacing, wizY - (int) (Frame.screenHeight * .1), null);
+            g.drawImage(hearts, spacing, (int) (Frame.screenHeight * .01), null);
             spacing += (int) (Frame.screenWidth * .05);
             if (hit) {
                 limit--;
