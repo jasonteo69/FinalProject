@@ -83,22 +83,24 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             boss.setHealth(boss.getHealth() - wizard.getDamage());
             wizardProjectile.setShow(false);
         }
+    }
+    public void manageLevel() {
+        if (boss.getHealth() <= 0 && projNum == 0) {
+        //next level call
+        projNum++;
+        gp.setDied(true);
+        gp.getLevelScreen().setLevel(gp.getLevelScreen().getLevel() + 1);
+        stage = new Stage("2");
+        wizard = stage.getWizard()[1];
+        wizardProjectile = wizard.getProjectile()[1];
+        boss = stage.getBoss()[1];
+        bossProjectile = boss.getProjectile()[1];
+        collision[0] = new CollisionHandler(boss.getHitbox(), wizardProjectile.getHitbox());
+        collision[1] = new CollisionHandler(wizard.getHitbox(), bossProjectile.getHitbox());
+    }
         if (boss.getHealth() <= 0) {
-            //next level call
-            projNum++;
-            if (gp.getLevelScreen().getLevel() > 2 || projNum >= 2) {
-                drawRest = false;
-                start = false;
-            } else {
-                gp.setDied(true);
-                gp.getLevelScreen().setLevel(gp.getLevelScreen().getLevel() + 1);
-
-                stage = new Stage("2");
-                wizard = stage.getWizard()[1];
-                wizardProjectile = wizard.getProjectile()[1];
-                boss = stage.getBoss()[1];
-                bossProjectile = boss.getProjectile()[1];
-            }
+            drawRest = false;
+            start = false;
         }
     }
     //Enemy AI
@@ -184,10 +186,10 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             g.drawRect(bossProjectile.getX(), bossProjectile.getY(), bossProjectile.getWidth(), bossProjectile.getHeight());
         } else {
             g.setColor(Color.red);
-            g.fillRect((int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .3), 500, 250);
+            g.fillRect((int) (Frame.screenWidth * .35), (int) (Frame.screenHeight * .3), 450, 250);
             g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 100));
             g.setColor(Color.darkGray);
-            g.drawString("You Win", (int) (Frame.screenWidth * .4), (int) (Frame.screenHeight * .45));
+            g.drawString("You Win", (int) (Frame.screenWidth * .35), (int) (Frame.screenHeight * .475));
         }
     }
     @Override
@@ -248,6 +250,8 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             collision[1] = new CollisionHandler(wizard.getHitbox(), bossProjectile.getHitbox());
             projNum = 0;
             start = true;
+            gp.getLevelScreen().setLevel(1);
+            projNum = 0;
         }
         if (gp.getLevelScreen().getSavedFile().contains(e.getX(), e.getY())) {
             gp.getLevelScreen().loadData();

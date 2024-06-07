@@ -17,7 +17,7 @@ public class Boss {
 
 
     public Boss (String boss, int width, int height) {
-        health = 30;
+        health = 15;
         damage = 5;
         this.imageFileName = "images/" + boss + ".png";
         this.image = Wizard.readImage(imageFileName);
@@ -45,7 +45,7 @@ public class Boss {
         g.setColor(new Color(207, 3, 252));
         g.drawString("Health: ", x, y - 55);
         g.setColor(Color.red);
-        g.fillRect(x + 150, y - 100, (int)(200 * health / 25), 50);
+        g.fillRect(x + 150, y - 100, (int)(400 * health / 25), 50);
     }
     private void generateProjectiles() {
         projectile[0] = new Projectile("dragonfire", 100, 100);

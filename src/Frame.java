@@ -45,6 +45,7 @@ public class Frame extends JFrame implements Runnable {
 
 
         while (windowThread.isAlive()) {
+            drawing.manageLevel();
             //movement
             if (drawing.isDrawRest()) {
                 drawing.updateWizardPosition();
