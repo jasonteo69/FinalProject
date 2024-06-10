@@ -28,13 +28,9 @@ public class Projectile implements KeyListener {
     public void drawProjectle(Graphics g) {
         g.drawImage(image, x, y, null);
     }
-
-
     public boolean isCanFire() {
         return canFire;
     }
-
-
     public boolean isShow() {
         return show;
     }
@@ -102,14 +98,6 @@ public class Projectile implements KeyListener {
 
     public void setCanFire(boolean canFire) {
         this.canFire = canFire;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
 }

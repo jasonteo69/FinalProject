@@ -144,7 +144,6 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             bossProjectile.setY(boss.getY() + 150);
             wizard.setHit(true);
             wizard.setHealth(wizard.getHealth() - boss.getDamage());
-            System.out.println(wizard.getHealth());
             if (wizard.getHealth() <= 0) {
                 drawRest = false;
             }
@@ -187,9 +186,6 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             if (bossProjectile.isShow()) {
                 bossProjectile.drawProjectle(g);
             }
-
-            g.drawRect(wizard.getWizX(), wizard.getWizY(), 80, 100);
-            g.drawRect(bossProjectile.getX(), bossProjectile.getY(), bossProjectile.getWidth(), bossProjectile.getHeight());
         } else {
             g.setColor(Color.red);
             g.fillRect((int) (Frame.screenWidth * .35), (int) (Frame.screenHeight * .3), 450, 250);
@@ -214,8 +210,6 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             leftPressed = true;
         }
     }
-
-
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
@@ -275,7 +269,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             gp.getLevelScreen().loadData(wizard.getWizX(), wizard.getWizY(), boss.getX(), boss.getY());
         }
         if (gp.getLevelScreen().getEndGame().contains(e.getX(), e.getY())) {
-            System.exit(100);
+            System.exit(74502);
         }
     }
 
