@@ -51,46 +51,21 @@ public class LevelScreen {
         g.setFont(new Font("verdana", Font.BOLD,50));
         g.drawString("GG Champ", (int) (Frame.screenWidth * .7), (int) (Frame.screenHeight * .775));
     }
-
     public void loadData(int x, int y, int x2, int y2) {
         fileHandler.saveProgress(level, x, y, x2, y2);
     }
-    public String getImageFileName() {
-        return imageFileName;
-    }
-
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
     public Rectangle getNewGame() {
         return newGame;
     }
-
-    public void setNewGame(Rectangle newGame) {
-        this.newGame = newGame;
-    }
-
     public Rectangle getSavedFile() {
         return savedFile;
-    }
-
-    public void setSavedFile(Rectangle savedFile) {
-        this.savedFile = savedFile;
     }
     public int getLevel() {
         return level;
     }
-
-
     public void setLevel(int level) {
         this.level = level;
     }
-
     public Rectangle getEndGame() {
         return endGame;
     }

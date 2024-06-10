@@ -109,7 +109,6 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             start = false;
         }
     }
-    //Enemy AI
     public void updateBossPosition() {
         if (boss.isCanMove()) {
             boss.setY(boss.getY() - 1);
