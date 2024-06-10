@@ -39,11 +39,4 @@ public class Stage {
         return boss;
     }
 
-    public String getStageNum() {
-        return stageNum;
-    }
-
-    public void setStageNum(String stageNum) {
-        this.stageNum = stageNum;
-    }
 }

@@ -64,6 +64,12 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
         if (wizard.getWizY() >= (int) (Frame.screenWidth * 0.5209)) {
             wizard.setWizY(0);
         }
+        if (wizard.getWizX() < 0) {
+            wizard.setWizX(0);
+        }
+        if (wizard.getWizY() < 0) {
+            wizard.setWizY((int) (Frame.screenHeight * .8));
+        }
     }
     public void updateProjectilePosition() {
         if (wizardProjectile.isFiring()) {
@@ -153,6 +159,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
 
         if (!drawRest && start) {
             g.drawImage(gp.getLevelScreen().getImage(), getX(), getY(), Frame.screenWidth, Frame.screenHeight, this);
+            gp.getLevelScreen().drawTitle(g);
             gp.getLevelScreen().drawButton1(g);
             gp.getLevelScreen().drawButton2(g);
         } else if (drawRest) {
@@ -190,6 +197,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             g.setFont(new Font("TT Supermolot Neue", Font.PLAIN, 100));
             g.setColor(Color.darkGray);
             g.drawString("You Win", (int) (Frame.screenWidth * .35), (int) (Frame.screenHeight * .475));
+            gp.getLevelScreen().drawButton3(g);
         }
     }
     @Override
@@ -232,6 +240,7 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
+
     }
 
 
@@ -253,8 +262,21 @@ public class DrawPanel extends JPanel implements KeyListener, MouseListener {
             gp.getLevelScreen().setLevel(1);
             projNum = 0;
         }
-        if (gp.getLevelScreen().getSavedFile().contains(e.getX(), e.getY())) {
-            gp.getLevelScreen().loadData();
+        if (gp.getLevelScreen().getSavedFile().contains(e.getX(), e.getY()) && gp.getLevelScreen().getLevel() == 2) {
+            wizard = stage.getWizard()[1];
+            wizardProjectile = wizard.getProjectile()[1];
+            boss = stage.getBoss()[1];
+            bossProjectile = boss.getProjectile()[1];
+            collision[0] = new CollisionHandler(boss.getHitbox(), wizardProjectile.getHitbox());
+            collision[1] = new CollisionHandler(wizard.getHitbox(), bossProjectile.getHitbox());
+            start = true;
+            drawRest = true;
+            wizard.setHealth(15);
+            wizard.setLimit(3);
+            gp.getLevelScreen().loadData(wizard.getWizX(), wizard.getWizY(), boss.getX(), boss.getY());
+        }
+        if (gp.getLevelScreen().getEndGame().contains(e.getX(), e.getY())) {
+            System.exit(100);
         }
     }
 

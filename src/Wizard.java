@@ -37,7 +37,6 @@ public class Wizard {
         projectile[0] = new Projectile(weapon + "1", 75, 75);
         projectile[1] = new Projectile(weapon + "2", 75, 75);
     }
-
     public static BufferedImage readImage(String imageName) {
         try {
             BufferedImage image;
@@ -101,11 +100,11 @@ public class Wizard {
         return hitbox;
     }
 
-    public boolean isHit() {
-        return hit;
-    }
-
     public void setHit(boolean hit) {
         this.hit = hit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }

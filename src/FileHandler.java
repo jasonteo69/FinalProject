@@ -8,11 +8,11 @@ public class FileHandler {
 
     }
 
-    public void saveProgress(int level) {
+    public void saveProgress(int level, int x, int y, int x2, int y2) {
         if (level == 1) {
             try {
                 FileWriter myWriter = new FileWriter("levelInfo/currentPosition");
-                myWriter.write("" + "wizard health, dragon health, ");
+                myWriter.write("" + x + " " + y + ", " + x2 + " " + y2);
                 myWriter.close();
                 System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
@@ -22,17 +22,7 @@ public class FileHandler {
         } else if (level == 2) {
             try {
                 FileWriter myWriter = new FileWriter("levelInfo/currentPosition");
-                myWriter.write("");
-                myWriter.close();
-                System.out.println("Successfully wrote to the file.");
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                FileWriter myWriter = new FileWriter("levelInfo/currentPosition");
-                myWriter.write("" + "wizard health, dragon health, ");
+                myWriter.write("" + x + " " + y + ", " + x2 + " " + y2);
                 myWriter.close();
                 System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {

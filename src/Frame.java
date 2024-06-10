@@ -19,9 +19,7 @@ public class Frame extends JFrame implements Runnable {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(1650, 1080);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-       /*
-       fullscreen --> this.setUndecorated(true);
-       */
+        this.setUndecorated(true);
         this.setLocationRelativeTo(null);
         this.addKeyListener(drawing);
         this.addMouseListener(drawing);
@@ -29,8 +27,6 @@ public class Frame extends JFrame implements Runnable {
         this.setVisible(true);
         startThread();
     }
-
-
     public void startThread() {
         windowThread = new Thread(this);
         windowThread.start();
@@ -79,8 +75,5 @@ public class Frame extends JFrame implements Runnable {
         return levelScreen;
     }
 
-    public void setLevelScreen(LevelScreen levelScreen) {
-        this.levelScreen = levelScreen;
-    }
 }
 

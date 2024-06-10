@@ -13,7 +13,7 @@ public class Boss {
     private boolean canMove;
     private Projectile[] projectile;
     private long nextShot = 0;
-    private long recoilTime = 1000;
+    private long delay = 1000;
 
 
     public Boss (String boss, int width, int height) {
@@ -55,7 +55,7 @@ public class Boss {
         projectile[projNum].setCanFire(true);
         projectile[projNum].setShow(true);
         if (System.currentTimeMillis() > nextShot) {
-            nextShot = System.currentTimeMillis() + recoilTime;
+            nextShot = System.currentTimeMillis() + delay;
         }
     }
 
